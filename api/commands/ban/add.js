@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const Commando = require('discord.js-commando');
+const SteamID = require('@node-steam/id');
 
 class Add extends Commando.Command {
     constructor(client) {
@@ -13,7 +14,12 @@ class Add extends Commando.Command {
                 {
                     key: 'steamId',
                     prompt: 'Please specify the ID of the player you want to track.',
-                    type: 'string'
+                    type: 'string',
+                    validate: (val, msg, arg) => {
+                        let steamId = new SteamID.ID(val);
+                        let type = steamId.getType();
+                        return type === "INDIVIDUAL"
+                    }
                 }
             ]
         });
@@ -26,7 +32,7 @@ class Add extends Commando.Command {
         let createdRecord = await TrackedAccount.findOrCreate({ steamId: args.steamId }, { steamId: args.steamId });
         await User.addToCollection(user.id, 'trackedAccounts', createdRecord.id);
 
-        let banStatus = await sails.helpers.checkPlayerBanStatus(args.steamId);
+        let banStatus = await sails.helpers.getBannedSteamIds([args.steamId]);
 
         if (banStatus.length !== 1) {
             return msg.channel.send(`Invalid API response!`)

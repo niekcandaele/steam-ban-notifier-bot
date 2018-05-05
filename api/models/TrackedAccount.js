@@ -8,62 +8,66 @@
 module.exports = {
 
     attributes: {
-  
-      //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
-      //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
-      //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-      steamId: {
-          type: 'string',
-          required: true,
-          unique: true
-      },
+        //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
+        //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
+        //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-      vacBanned: {
-          type: "boolean",
-          defaultsTo: false
-      },
+        steamId: {
+            type: 'string',
+            required: true,
+            unique: true
+        },
 
-      numberOfVacBans: {
-        type: 'number',
-        defaultsTo: 0
-      },
+        vacBanned: {
+            type: "boolean",
+            defaultsTo: false
+        },
 
-      daysSinceLastBan: {
-        type: 'number'
-      },
+        numberOfVacBans: {
+            type: 'number',
+            defaultsTo: 0
+        },
 
-      economyBan: {
-        type: 'string',
-        defaultsTo: 'none'
-      },
+        daysSinceLastBan: {
+            type: 'number'
+        },
 
-      communityBanned: {
-          type: 'boolean',
-          defaultsTo: false
-      },
+        economyBan: {
+            type: 'string',
+            defaultsTo: 'none'
+        },
 
-      banDetectedOn: {
-          type: 'ref'
-      },
-  
-  
-      //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
-      //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
-      //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
-  
-  
-      //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
-      //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
-      //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
+        communityBanned: {
+            type: 'boolean',
+            defaultsTo: false
+        },
 
-      trackedBy: {
-          collection: 'user',
-          via: 'trackedAccounts'
-      }
-  
+        banDetectedAt: {
+            type: 'number',
+        },
+        
+        lastCheckedAt: {
+            type: 'number',
+            defaultsTo: 0
+        },
+
+
+        //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
+        //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
+        //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
+
+
+        //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
+        //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
+        //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
+
+        trackedBy: {
+            collection: 'user',
+            via: 'trackedAccounts'
+        }
+
     },
-  
-  };
-  
-  
+
+};
+

@@ -23,7 +23,7 @@ module.exports.bootstrap = async function (done) {
     sails.log.error(error)
   });
 
-  client.on('commandError', error => {
+  client.on('commandError', (command, error, message, args, fromPatten) => {
     sails.log.error(error)
   });
 

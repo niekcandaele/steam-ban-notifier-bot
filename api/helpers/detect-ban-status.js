@@ -3,10 +3,10 @@ var request = require('request-promise-native');
 module.exports = {
 
 
-  friendlyName: 'Check player ban status',
+  friendlyName: 'Detect ban status',
 
 
-  description: 'Checks the current bans of a player',
+  description: 'Detects if a players ban status has changed',
 
 
   inputs: {

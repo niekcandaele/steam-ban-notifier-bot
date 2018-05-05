@@ -5,7 +5,9 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "@node-steam/id": "^1.0.0",
     "async": "2.0.1",
+    "chai": "^4.1.2",
     "discord.js": "^11.3.2",
     "discord.js-commando": "^0.10.0",
     "dotenv": "^5.0.1",
@@ -17,11 +19,12 @@
     "sails-hook-sockets": "^1.4.0"
   },
   "devDependencies": {
-    "eslint": "4.11.0"
+    "eslint": "4.11.0",
+    "mocha": "^5.1.1"
   },
   "scripts": {
     "start": "NODE_ENV=production node app.js",
-    "test": "npm run lint && npm run custom-tests && echo 'Done.'",
+    "test": "node ./node_modules/mocha/bin/mocha test/lifecycle.test.js test/unit/*.test.js --done",
     "lint": "node ./node_modules/eslint/bin/eslint . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your code looks good.'",
     "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
   },
