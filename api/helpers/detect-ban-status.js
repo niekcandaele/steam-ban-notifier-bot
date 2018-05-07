@@ -61,7 +61,7 @@ module.exports = {
           let gameChanged = (account.numberOfGameBans < playerStats.NumberOfGameBans);
           let communityChanged = (playerStats.CommunityBanned && !account.communityBanned);
           let economyChanged = (account.economyBan !== playerStats.EconomyBan);
-          let globalChange = vacChanged || gameChanged || communityChanged || economyChanged !== 'none'
+          let globalChange = vacChanged || gameChanged || communityChanged || economyChanged
           objectToSend.set(account.id, {
             global: globalChange,
             VAC: vacChanged,

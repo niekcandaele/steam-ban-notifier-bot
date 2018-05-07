@@ -16,9 +16,13 @@ class Add extends Commando.Command {
           prompt: 'Please specify the ID of the player you want to track.',
           type: 'string',
           validate: (val) => {
-            let steamId = new SteamID.ID(val);
-            let type = steamId.getType();
-            return type === 'INDIVIDUAL';
+            try {
+              let steamId = new SteamID.ID(val);
+              let type = steamId.getType();
+              return type === 'INDIVIDUAL';
+            } catch (error) {
+              return false
+            }
           }
         }
       ]
@@ -32,22 +36,9 @@ class Add extends Commando.Command {
     let createdRecord = await TrackedAccount.findOrCreate({ steamId: args.steamId }, { steamId: args.steamId });
     await User.addToCollection(user.id, 'trackedAccounts', createdRecord.id);
 
-    let banStatus = await sails.helpers.getBannedSteamIds([args.steamId]);
+    let embed = await sails.helpers.createProfileEmbed(args.steamId);
 
-    if (banStatus.length !== 1) {
-      return msg.channel.send(`Invalid API response!`);
-    }
-
-    let foundPlayer = banStatus[0];
-    let embed = new Discord.RichEmbed();
-    embed.setTitle(`Tracking account`)
-            .addField('👤 Steam ID', args.steamId)
-            .addField(
-                foundPlayer.VACBanned || foundPlayer.NumberOfGameBans > 0 ? `🚫 BANNED` : '✅ Not banned',
-                foundPlayer.VACBanned || foundPlayer.NumberOfGameBans > 0 ? `Days since ban: ${foundPlayer.DaysSinceLastBan}` : '-'
-            )
-            .addField(`VAC bans: ${foundPlayer.NumberOfVACBans}`, `Game bans: ${foundPlayer.NumberOfGameBans}`);
-    await msg.channel.send(embed);
+    msg.channel.send({embed});
 
   }
 
