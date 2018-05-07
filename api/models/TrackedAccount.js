@@ -7,67 +7,73 @@
 
 module.exports = {
 
-    attributes: {
+  attributes: {
 
-        //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
-        //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
-        //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
+    //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
+    //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
+    //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-        steamId: {
-            type: 'string',
-            required: true,
-            unique: true
-        },
-
-        vacBanned: {
-            type: "boolean",
-            defaultsTo: false
-        },
-
-        numberOfVacBans: {
-            type: 'number',
-            defaultsTo: 0
-        },
-
-        daysSinceLastBan: {
-            type: 'number'
-        },
-
-        economyBan: {
-            type: 'string',
-            defaultsTo: 'none'
-        },
-
-        communityBanned: {
-            type: 'boolean',
-            defaultsTo: false
-        },
-
-        banDetectedAt: {
-            type: 'number',
-        },
-        
-        lastCheckedAt: {
-            type: 'number',
-            defaultsTo: 0
-        },
-
-
-        //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
-        //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
-        //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
-
-
-        //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
-        //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
-        //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-
-        trackedBy: {
-            collection: 'user',
-            via: 'trackedAccounts'
-        }
-
+    steamId: {
+      type: 'string',
+      required: true,
+      unique: true
     },
+
+    vacBanned: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+
+    numberOfVacBans: {
+      type: 'number',
+      defaultsTo: 0
+    },
+
+    numberOfGameBans: {
+      type: 'number',
+      defaultsTo: 0
+    },
+
+    daysSinceLastBan: {
+      type: 'number'
+    },
+
+    economyBan: {
+      type: 'string',
+      defaultsTo: 'none'
+    },
+
+    communityBanned: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+
+    banDetectedAt: {
+      type: 'number',
+      defaultsTo: 0
+    },
+
+    lastCheckedAt: {
+      type: 'number',
+      defaultsTo: 0
+    },
+
+
+    //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
+    //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
+    //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
+
+
+    //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
+    //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
+    //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
+
+    trackedBy: {
+      collection: 'user',
+      via: 'trackedAccounts'
+    }
+
+  },
 
 };
 

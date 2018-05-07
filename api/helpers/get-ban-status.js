@@ -27,9 +27,10 @@ module.exports = {
   fn: async function (inputs, exits) {
 
     try {
+      let objectToSend = new Map();
 
-      if (typeof inputs.steamIds === typeof new Array()) {
-        inputs.steamIds = inputs.steamIds.join(',')
+      if (_.isArray(inputs.steamIds)) {
+        inputs.steamIds = inputs.steamIds.join(',');
       }
 
       let apiResponse = await request({
@@ -45,22 +46,20 @@ module.exports = {
         json: true
       });
 
-      let objectToSend = new Object();
       for (const returnedPlayer of apiResponse.players) {
-
-        objectToSend[returnedPlayer.SteamId] = returnedPlayer
+        objectToSend.set(returnedPlayer.SteamId, returnedPlayer);
       }
       return exits.success(objectToSend);
 
     } catch (error) {
 
       if (error.statusCode === 400) {
-        return exits.error(new Error(error))
+        return exits.error(new Error(error));
       }
 
       return exits.error(error);
 
-    };
+    }
   }
 };
 
