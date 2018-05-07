@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js'); // eslint-disable-line no-unused-vars
 const Commando = require('discord.js-commando');
 const path = require('path');
 /**
@@ -14,23 +14,26 @@ const path = require('path');
 
 module.exports.bootstrap = async function (done) {
 
+  for (const playerToTrack of ['76561198028175941', '76561198342779197', '76561198305371279', '1337']) {
+    await TrackedAccount.findOrCreate({ steamId: playerToTrack }, { steamId: playerToTrack });
+  }
+
   const client = new Commando.Client({
     owner: sails.config.custom.discord.owners
   });
 
 
   client.on('error', error => {
-    sails.log.error(error)
+    sails.log.error(error);
   });
 
-  client.on('commandError', (command, error, message, args, fromPatten) => {
-    sails.log.error(error)
+  client.on('commandError', (command, error) => {
+    sails.log.error(error);
   });
 
-  client.on('commandRun', (command, promise, message, args, fromPatten) => {
-    sails.log.info(`${command.name} ran by ${message.author.username} on ${message.guild.name}`)
+  client.on('commandRun', (command, promise, message) => {
+    sails.log.info(`${command.name} ran by ${message.author.username} on ${message.guild.name} - ${message.content}`);
   });
-
 
   client.registry
     .registerGroups([

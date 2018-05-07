@@ -21,8 +21,12 @@ module.exports.custom = {
   // …
 
   discord: {
-    owners: ["220554523561820160"]
+    owners: ['220554523561820160']
   },
 
-  steamAPIkey: process.env.STEAM_API_KEY
+  steamAPIkey: process.env.STEAM_API_KEY,
+
+  maxPlayersToCheckPerInterval: 3,
+    // 1800000 Ms = 30 minutes
+  intervalToSendBanChecksMs: 5000,
 };
