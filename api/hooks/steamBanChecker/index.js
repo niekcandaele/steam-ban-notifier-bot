@@ -46,8 +46,8 @@ async function intervalFunc() {
       lastCheckedAt: {
         '<': borderDate
       },
-      banDetectedOn: 0
-    }).limit(sails.config.custom.maxPlayersToCheckPerInterval);
+      banDetectedAt: 0
+    }).limit(sails.config.custom.maxPlayersToCheckPerInterval).populate('trackedBy');
 
     if (playersToCheck.length === 0) {
       sails.log.warn('No players to check! This is not normal...')

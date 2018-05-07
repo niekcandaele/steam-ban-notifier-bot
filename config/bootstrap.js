@@ -15,7 +15,7 @@ const path = require('path');
 module.exports.bootstrap = async function (done) {
 
   for (const playerToTrack of ['76561198028175941', '76561198342779197', '76561198305371279', '1337']) {
-    await TrackedAccount.findOrCreate({ steamId: playerToTrack }, { steamId: playerToTrack });
+    //await TrackedAccount.findOrCreate({ steamId: playerToTrack }, { steamId: playerToTrack });
   }
 
   const client = new Commando.Client({
@@ -45,6 +45,7 @@ module.exports.bootstrap = async function (done) {
 
   client.login(process.env.BOT_TOKEN);
 
+  sails.discordClient = client;
 
 
   client.on('ready', () => {
