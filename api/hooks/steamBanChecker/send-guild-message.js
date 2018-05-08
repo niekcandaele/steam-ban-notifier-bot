@@ -13,6 +13,7 @@ module.exports = async function (bannedPlayer, profileEmbed) {
 
             if (!_.isUndefined(channelToSendMessage)) {
                 await channelToSendMessage.send(`A player was banned!`, {embed: profileEmbed} );
+                sails.log.debug(`Sent message to ${channelToSendMessage.name} on ${channelToSendMessage.guild.name}`)
             }
         }
 
