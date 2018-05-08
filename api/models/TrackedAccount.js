@@ -34,10 +34,6 @@ module.exports = {
       defaultsTo: 0
     },
 
-    daysSinceLastBan: {
-      type: 'number'
-    },
-
     economyBan: {
       type: 'string',
       defaultsTo: 'none'
@@ -70,6 +66,11 @@ module.exports = {
 
     trackedBy: {
       collection: 'user',
+      via: 'trackedAccounts'
+    },
+
+    trackedByGuild: {
+      collection: 'discordGuild',
       via: 'trackedAccounts'
     }
 

@@ -20,7 +20,12 @@ module.exports = {
       },
 
       banNotificationChannel: {
-          defaultsTo: 0,
+          defaultsTo: '0',
+          type: 'string'
+      },
+
+      globalNotificationChannel: {
+          defaultsTo: '0',
           type: 'string'
       },
   

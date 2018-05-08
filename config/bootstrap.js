@@ -32,7 +32,7 @@ module.exports.bootstrap = async function (done) {
   });
 
   client.on('commandRun', (command, promise, message) => {
-    sails.log.info(`${command.name} ran by ${message.author.username} on ${message.guild.name} - ${message.content}`);
+    sails.log.info(`${command.name} ran by ${message.author.username} - ${message.content}`);
   });
 
   client.registry
