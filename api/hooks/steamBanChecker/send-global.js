@@ -6,7 +6,7 @@ module.exports = async function (bannedPlayer, profileEmbed) {
 
         let discordGuildsWithGlobalEnabled = await DiscordGuild.find({
             globalNotificationChannel: {
-                "!": 0
+                "!=": [0, "0"]
             }
         })
 

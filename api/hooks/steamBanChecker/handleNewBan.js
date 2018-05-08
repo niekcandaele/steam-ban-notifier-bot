@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const sendDm = require('./send-dm.js');
 const sendGuildMessage = require('./send-guild-message');
+const sendGlobal = require('./send-global.js');
 
 async function handleNewBan(bannedPlayer, newBanStatus) {
     sails.log.info(`New ban detected!`, bannedPlayer.id);
@@ -10,8 +11,8 @@ async function handleNewBan(bannedPlayer, newBanStatus) {
     let profileEmbed = await sails.helpers.createProfileEmbed(bannedPlayer.steamId);
 
     await sendDm(bannedPlayer, profileEmbed);
-
     await sendGuildMessage(bannedPlayer, profileEmbed);
+    await sendGlobal(bannedPlayer, profileEmbed);
 
     await TrackedAccount.update(bannedPlayer.id, {
         banDetectedAt: Date.now(),
