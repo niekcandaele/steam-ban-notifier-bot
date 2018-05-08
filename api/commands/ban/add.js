@@ -38,18 +38,18 @@ class Add extends Commando.Command {
     let discordGuild = await DiscordGuild.findOrCreate({ discordId: msg.guild.id }, { discordId: msg.guild.id });
 
     user = await User.findOne(user.id).populate('trackedAccounts');
-    discordGuild = await DiscordGuild.findOne(discordGuild.id).populate('trackedAccounts');
+    discordGuild = await DiscordGuild.findOne(discordGuild.id).populate('trackedAccounts')
 
     // Check if the user can track this account
     if (sails.config.custom.maxAccountsTrackedByUser <= user.trackedAccounts.length) {
-      msg.channel.send(`You have reached your maximum amount of accounts to track. Consider removing some! You are tracking ${user.trackedAccounts.length} profiles`)
+      msg.reply(`You have reached your maximum amount of accounts to track. Consider removing some! You are tracking ${user.trackedAccounts.length} profiles`)
     } else {
       await User.addToCollection(user.id, 'trackedAccounts', trackedAccount.id);
     }
 
     // Same for the discord guild
     if (sails.config.custom.maxAccountsTrackedByServer <= discordGuild.trackedAccounts.length) {
-      msg.channel.send(`This server cannot track more accounts! Consider removing some! This guild is tracking ${discordGuild.trackedAccounts.length} profiles`)
+      msg.reply(`This server cannot track more accounts! Consider removing some! This guild is tracking ${discordGuild.trackedAccounts.length} profiles`)
     } else {
       await DiscordGuild.addToCollection(discordGuild.id, 'trackedAccounts', trackedAccount.id);
     }

@@ -48,8 +48,8 @@ module.exports.datastores = {
     *    (See https://sailsjs.com/config/datastores for help.)                 *
     *                                                                          *
     ***************************************************************************/
-    adapter: 'sails-disk',
-    // url: 'mysql://user:password@host:port/database',
+    adapter: 'sails-mysql',
+    url: process.env.DBSTRING,
 
   },
 

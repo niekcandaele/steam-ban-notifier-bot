@@ -16,7 +16,8 @@
     "request-promise-native": "^1.0.5",
     "sails": "^1.0.0-46",
     "sails-hook-orm": "^2.0.0-16",
-    "sails-hook-sockets": "^1.4.0"
+    "sails-hook-sockets": "^1.4.0",
+    "sails-mysql": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "4.11.0",
