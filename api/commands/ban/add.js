@@ -10,6 +10,7 @@ class Add extends Commando.Command {
       aliases: ['suspect', 'track'],
       memberName: 'add',
       description: 'Add a new ID to the system to track.',
+      guildOnly: true,
       args: [
         {
           key: 'steamId',
@@ -33,12 +34,14 @@ class Add extends Commando.Command {
 
 
     let user = await User.findOrCreate({ discordId: msg.author.id }, { discordId: msg.author.id });
-    let createdRecord = await TrackedAccount.findOrCreate({ steamId: args.steamId }, { steamId: args.steamId });
-    await User.addToCollection(user.id, 'trackedAccounts', createdRecord.id);
+    let trackedAccount = await TrackedAccount.findOrCreate({ steamId: args.steamId }, { steamId: args.steamId });
+    let discordGuild = await DiscordGuild.findOrCreate({ discordId: msg.guild.id }, { discordId: msg.guild.id })
+    await User.addToCollection(user.id, 'trackedAccounts', trackedAccount.id);
+    await DiscordGuild.addToCollection(discordGuild.id, 'trackedAccounts', trackedAccount.id);
 
     let embed = await sails.helpers.createProfileEmbed(args.steamId);
 
-    msg.channel.send({embed});
+    msg.channel.send({ embed });
 
   }
 

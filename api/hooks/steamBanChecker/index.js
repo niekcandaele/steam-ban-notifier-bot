@@ -42,12 +42,7 @@ async function intervalFunc() {
     let dateNow = Date.now();
     let borderDate = dateNow.valueOf() - intervalToCheckAccountsMs;
 
-    let playersToCheck = await TrackedAccount.find({
-      lastCheckedAt: {
-        '<': borderDate
-      },
-      banDetectedAt: 0
-    }).limit(sails.config.custom.maxPlayersToCheckPerInterval).populate('trackedBy');
+    let playersToCheck = await TrackedAccount.find({}).limit(sails.config.custom.maxPlayersToCheckPerInterval).populate('trackedBy').populate('trackedByGuild').sort('lastCheckedAt ASC');
 
     if (playersToCheck.length === 0) {
       sails.log.warn('No players to check! This is not normal...')
@@ -71,7 +66,7 @@ async function intervalFunc() {
       }
     }
 
-    
+
 
     sails.log.debug(`Checked ${playersToCheck.length} players for new bans`);
 
