@@ -19,6 +19,43 @@
  * https://sailsjs.com/docs/concepts/deployment
  */
 
+const winston = require('winston');
+
+let customLogger = new winston.Logger({
+ transports: [
+   new winston.transports.Console({
+     level: 'silly',
+     colorize: true,
+     timestamp: true,
+     humanReadableUnhandledException: true
+   }),
+   new winston.transports.File({
+     level: '2',
+     name: 'infolog',
+     timestamp: true,
+     humanReadableUnhandledException: true,
+     filename: './logs/prod.log',
+     tailable: true,
+     maxsize: 1000,
+     maxFiles: 3,
+     json: false,
+     colorize: true
+   }),
+   new winston.transports.File({
+     level: '4',
+     name: 'debuglog',
+     timestamp: true,
+     humanReadableUnhandledException: true,
+     filename: './logs/debug.log',
+     tailable: true,
+     maxsize: 1000,
+     maxFiles: 5,
+     json: false,
+     colorize: true
+   })
+ ]
+})
+
 module.exports = {
 
 
@@ -270,7 +307,8 @@ module.exports = {
   *                                                                         *
   ***************************************************************************/
   log: {
-    level: 'debug'
+    custom: customLogger,
+    inspect: false
   },
 
 

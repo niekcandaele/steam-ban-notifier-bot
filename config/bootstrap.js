@@ -31,25 +31,42 @@ module.exports.bootstrap = async function (done) {
     sails.log.error(error);
   });
 
+  client.on('guildDelete', (guild) => {
+    sails.log.info(`Left guild - ${guild.name}`)
+  });
+
+  client.on('guildCreate', async (guild) => {
+    sails.log.info(`New guild! ${guild.name}`)
+    try {
+      let dmChannelWithOwner = await guild.owner.createDM();
+      dmChannelWithOwner.send(`I was added to ${guild.name}! Please check the website for more info - https://www.ban-notifier.xyz/`)
+      return
+    } catch (error) {
+      sails.log.error(error)
+    }
+  });
+
   client.on('commandRun', (command, promise, message) => {
     sails.log.info(`${command.name} ran by ${message.author.username} - ${message.content}`);
   });
 
+  
   client.registry
-    .registerGroups([
-      ['ban', 'Player bans'],
-      ['meta', 'Commands about the bot'],
-    ])
-    .registerDefaults()
-    .registerCommandsIn(path.join(__dirname, '../api/commands'));
-
+  .registerGroups([
+    ['ban', 'Player bans'],
+    ['meta', 'Commands about the bot'],
+  ])
+  .registerDefaults()
+  .registerCommandsIn(path.join(__dirname, '../api/commands'));
+  
   client.login(process.env.BOT_TOKEN);
-
+  
   sails.discordClient = client;
-
-
+  
+  
   client.on('ready', () => {
     sails.log.info(`Logged in as ${client.user.tag}!`);
+    client.user.setActivity('https://www.ban-notifier.xyz/', {type: 'WATCHING'})
     // Don't forget to trigger `done()` when this bootstrap function's logic is finished.
     // (otherwise your server will never lift, since it's waiting on the bootstrap)
     return done();
