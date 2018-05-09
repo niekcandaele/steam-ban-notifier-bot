@@ -30,7 +30,7 @@ let customLogger = new winston.Logger({
      humanReadableUnhandledException: true
    }),
    new winston.transports.File({
-     level: '2',
+     level: 'info',
      name: 'infolog',
      timestamp: true,
      humanReadableUnhandledException: true,
@@ -42,7 +42,7 @@ let customLogger = new winston.Logger({
      colorize: true
    }),
    new winston.transports.File({
-     level: '4',
+     level: 'debug',
      name: 'debuglog',
      timestamp: true,
      humanReadableUnhandledException: true,
