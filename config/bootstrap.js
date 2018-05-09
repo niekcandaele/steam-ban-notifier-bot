@@ -19,7 +19,7 @@ module.exports.bootstrap = async function (done) {
   }
 
   const client = new Commando.Client({
-    owner: sails.config.custom.discord.owners,
+    owners: sails.config.custom.discord.owners,
     commandPrefix: "=",
     unknownCommandResponse: false,
     invite: "https://discordapp.com/invite/kuDJG6e"
