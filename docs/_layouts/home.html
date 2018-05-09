@@ -1,69 +1,73 @@
 --- 
 layout: default
 ---
+<div id="homepage-container">
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br>
+      <br>
+      <h1 class="header center blue-text">{{ site.title }}</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">{{ content }}</h5>
+      </div>
 
-<div class="section no-pad-bot" id="index-banner">
+      <div class="row center">
+        <a href="https://discordapp.com/api/oauth2/authorize?client_id=441593020442345499&permissions=18432&scope=bot" id="download-button"
+          class="btn-large waves-effect waves-light blue">
+          <i class="fab fa-discord"></i> Add to your server</a>
+      </div>
+      <br>
+      <br>
+
+    </div>
+  </div>
+
   <div class="container">
-    <br>
-    <br>
-    <h1 class="header center orange-text">{{ site.title }}</h1>
-    <div class="row center">
-      <h5 class="header col s12 light">{{ content }}</h5>
-    </div>
+    <div class="section">
 
-    <div class="row center">
-      <a href="https://discordapp.com/api/oauth2/authorize?client_id=441593020442345499&permissions=18432&scope=bot" id="download-button"
-        class="btn-large waves-effect waves-light orange">
-        <i class="fab fa-discord"></i> Add to your server</a>
-    </div>
-    <br>
-    <br>
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text">
+              <i class="material-icons">flash_on</i>
+            </h2>
+            <h5 class="center">Account tracking</h5>
 
-  </div>
-</div>
+            <p class="light">Track steam accounts and receive a notification when the account gets any type of ban. Currently supported are
+              all Steam bans (VAC, game, economy, community bans)</p>
+          </div>
+        </div>
 
-<div class="container">
-  <div class="section">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text">
+              <i class="material-icons">group</i>
+            </h2>
+            <h5 class="center">Open source</h5>
 
-    <!--   Icon Section   -->
-    <div class="row">
-      <div class="col s12 m4">
-        <div class="icon-block">
-          <h2 class="center light-blue-text">
-            <i class="material-icons">flash_on</i>
-          </h2>
-          <h5 class="center">Account tracking</h5>
+            <p class="light">The code is on
+              <a href="https://github.com/niekcandaele/steam-ban-notifier-bot" target="_blank">
+                <i class="fab fa-github"></i> Github </a>. Fully available to the community to run your own version or to improve it!</p>
+          </div>
+        </div>
 
-          <p class="light">Track steam accounts and receive a notification when the account gets any type of ban. Currently supported are
-            all Steam bans (VAC, game, economy, community bans)</p>
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text">
+              <i class="material-icons">settings</i>
+            </h2>
+            <h5 class="center">Configurable</h5>
+
+            <p class="light">Configure a guild channel to receive notifications (or don't!). Add/remove tracking for accounts. The bot does
+              what you want.</p>
+          </div>
         </div>
       </div>
 
-      <div class="col s12 m4">
-        <div class="icon-block">
-          <h2 class="center light-blue-text">
-            <i class="material-icons">group</i>
-          </h2>
-          <h5 class="center">Open source</h5>
-
-          <p class="light">The code is available on <a href="https://github.com/niekcandaele/steam-ban-notifier-bot" target="_blank"><i class="fab fa-github"></i> Github </a>. Fully available to the community to run your own version or to improve it!</p>
-        </div>
-      </div>
-
-      <div class="col s12 m4">
-        <div class="icon-block">
-          <h2 class="center light-blue-text">
-            <i class="material-icons">settings</i>
-          </h2>
-          <h5 class="center">Configurable</h5>
-
-          <p class="light">Configure a guild channel to receive notifications (or don't!). Add/remove tracking for accounts. The bot does what you want.</p>
-        </div>
-      </div>
     </div>
 
   </div>
 
 </div>
-
 </div>
