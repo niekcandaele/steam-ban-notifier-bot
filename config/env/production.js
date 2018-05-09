@@ -307,6 +307,7 @@ module.exports = {
   *                                                                         *
   ***************************************************************************/
   log: {
+    level: 'silly',
     custom: customLogger,
     inspect: false
   },
