@@ -6,7 +6,7 @@ class SetBanNotificationChannel extends Commando.Command {
         super(client, {
             name: 'setbannotificationchannel',
             group: 'ban',
-            aliases: ['config', 'channel'],
+            aliases: ['notificationchannel'],
             memberName: 'setbannotificationchannel',
             description: 'Set a discord channel to receive notifications',
             args: [
