@@ -23,8 +23,9 @@ class Add extends Commando.Command {
   async run(msg, args) {
 
     if (!checkSteamId(args.steamId)) {
-      return msg.channel.send(`You have provided an invalid steam ID! Make sure you're inputting a user id and not a group or other type of ID.
+      msg.channel.send(`You have provided an invalid steam ID! Make sure you're inputting a user id and not a group or other type of ID.
 If you are unsure how to find a steam ID, you can use https://steamid.io/lookup or https://steamidfinder.com/lookup/`)
+return
     }
 
     let trackedAccount = await TrackedAccount.findOrCreate({ steamId: args.steamId }, { steamId: args.steamId });
