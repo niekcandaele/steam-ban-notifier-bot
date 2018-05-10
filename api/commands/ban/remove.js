@@ -13,22 +13,18 @@ class Remove extends Commando.Command {
         {
           key: 'steamId',
           prompt: 'Please specify the ID of the player you want to stop tracking.',
-          type: 'string',
-          validate: (val) => {
-            try {
-              let steamId = new SteamID.ID(val);
-              let type = steamId.getType();
-              return type === 'INDIVIDUAL';
-            } catch (error) {
-              return false
-            }
-          }
+          type: 'string'
         }
       ]
     });
   }
 
   async run(msg, args) {
+
+    if (!checkSteamId(args.steamId)) {
+      return msg.channel.send(`You have provided an invalid steam ID! Make sure you're inputting a user id and not a group or other type of ID.
+If you are unsure how to find a steam ID, you can use https://steamid.io/lookup or https://steamidfinder.com/lookup/`)
+    }
 
     let trackedAccount = await TrackedAccount.findOrCreate({steamId: args.steamId}, {steamId: args.steamId});
 
@@ -54,3 +50,14 @@ class Remove extends Commando.Command {
 
 
 module.exports = Remove;
+
+
+function checkSteamId(val) {
+  try {
+    let steamId = new SteamID.ID(val);
+    let type = steamId.getType();
+    return type === "INDIVIDUAL"
+  } catch (error) {
+    return false
+  }
+}
