@@ -28,6 +28,10 @@ If you are unsure how to find a steam ID, you can use https://steamid.io/lookup 
 return
     }
 
+    args.steamId = new SteamID.ID(args.steamId);
+    args.steamId = args.steamId.getSteamID64();
+
+    
     let trackedAccount = await TrackedAccount.findOrCreate({ steamId: args.steamId }, { steamId: args.steamId });
 
     // If message is sent in a guild, add to guild tracking
