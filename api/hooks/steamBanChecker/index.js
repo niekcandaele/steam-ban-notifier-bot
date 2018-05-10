@@ -68,7 +68,7 @@ async function intervalFunc() {
 
 
 
-    sails.log.debug(`Checked ${playersToCheck.length} players for new bans`, playersToCheck.map(player => player.id));
+    sails.log.debug(`Checked ${playersToCheck.length} players for new bans`, playersToCheck.map(player => [player.id, player.steamId]));
 
 
   } catch (error) {

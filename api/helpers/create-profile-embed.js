@@ -36,15 +36,15 @@ module.exports = {
 
             profileEmbed.addField(playerProfile.personaname, inputs.steamId)
                 .setThumbnail(playerProfile.avatarfull)
-                .addField(`VAC bans: ${playerBanStatus.NumberOfVACBans}`, `Game bans: ${playerBanStatus.NumberOfGameBans}`, true)
-                .addField('Economy ban', playerBanStatus.EconomyBan, true)
-                .addField(`Tracked by ${trackedAccount.trackedBy.length} user(s)`, `Tracked by ${trackedAccount.trackedByGuild.length} guild(s)`)
+                .addField(`🚫 VAC bans: ${playerBanStatus.NumberOfVACBans}`, `🎮 Game bans: ${playerBanStatus.NumberOfGameBans}`, true)
+                .addField('💰 Economy ban', playerBanStatus.EconomyBan, true)
+                .addField(`👀 Tracked by ${trackedAccount.trackedBy.length} user(s)`, `Tracked by ${trackedAccount.trackedByGuild.length} guild(s)`)
                 .setColor('GREEN')
 
 
             if (playerBanStatus.NumberOfVACBans > 0 || playerBanStatus.NumberOfGameBans > 0) {
                 profileEmbed.setColor("RED")
-                profileEmbed.addField('Days since last ban', playerBanStatus.DaysSinceLastBan)
+                profileEmbed.addField('⏱️ Days since last ban', playerBanStatus.DaysSinceLastBan)
             }
 
             return exits.success(profileEmbed);
