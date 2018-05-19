@@ -38,17 +38,12 @@ async function intervalFunc() {
 
   try {
 
-    let intervalToCheckAccountsMs = 7500;
-    let dateNow = Date.now();
-    let borderDate = dateNow.valueOf() - intervalToCheckAccountsMs;
-
     let playersToCheck = await TrackedAccount.find({}).limit(sails.config.custom.maxPlayersToCheckPerInterval).populate('trackedBy').populate('trackedByGuild').sort('lastCheckedAt ASC');
 
     if (playersToCheck.length === 0) {
       sails.log.warn('No players to check! This is not normal...')
       return
     }
-
 
     let banStatusChanges = await sails.helpers.detectBanStatus(playersToCheck.map(player => player.id))
 
@@ -58,16 +53,15 @@ async function intervalFunc() {
       })
 
       let newBanStatus = banStatusChanges.get(playerToCheck.id);
-      if (_.isUndefined(newBanStatus)) {
-        return
-      }
-      if (newBanStatus.global) {
-        handleNewBan(playerToCheck, newBanStatus)
+      if (!_.isUndefined(newBanStatus)) {
+        if (newBanStatus.global) {
+          await handleNewBan(playerToCheck, newBanStatus)
+        }
       }
     }
 
 
-
+    
     sails.log.debug(`Checked ${playersToCheck.length} players for new bans`, playersToCheck.map(player => [player.id, player.steamId]));
 
 
