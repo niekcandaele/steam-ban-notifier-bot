@@ -29,6 +29,7 @@ module.exports.custom = {
   maxPlayersToCheckPerInterval: 50,
     // 1800000 Ms = 30 minutes
   intervalToSendBanChecksMs: 30000,
+  ongoingMatchCheckInterval: 30000,
 
   maxAccountsTrackedByUser: 50,
   maxAccountsTrackedByServer: 250,
