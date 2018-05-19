@@ -25,13 +25,13 @@ class Add extends Commando.Command {
     if (!checkSteamId(args.steamId)) {
       msg.channel.send(`You have provided an invalid steam ID! Make sure you're inputting a user id and not a group or other type of ID.
 If you are unsure how to find a steam ID, you can use https://steamid.io/lookup or https://steamidfinder.com/lookup/`)
-return
+      return
     }
 
     args.steamId = new SteamID.ID(args.steamId);
     args.steamId = args.steamId.getSteamID64();
 
-    
+
     let trackedAccount = await TrackedAccount.findOrCreate({ steamId: args.steamId }, { steamId: args.steamId });
 
     // If message is sent in a guild, add to guild tracking
@@ -47,19 +47,18 @@ return
 
       await DiscordGuild.addToCollection(discordGuild.id, 'trackedAccounts', trackedAccount.id);
     }
-    // If message is sent in a DM, add to user tracking
-    else {
-      let user = await User.findOrCreate({ discordId: msg.author.id }, { discordId: msg.author.id });
 
-      user = await User.findOne(user.id).populate('trackedAccounts');
-      // Check if the user can track this account
-      if (sails.config.custom.maxAccountsTrackedByUser <= user.trackedAccounts.length) {
-        msg.channel.send(`You have reached your maximum amount of accounts to track. Consider removing some! You are tracking ${user.trackedAccounts.length} profiles`)
-        return
-      }
+    let user = await User.findOrCreate({ discordId: msg.author.id }, { discordId: msg.author.id });
+
+    user = await User.findOne(user.id).populate('trackedAccounts');
+    // Check if the user can track this account
+    if (sails.config.custom.maxAccountsTrackedByUser <= user.trackedAccounts.length) {
+      msg.channel.send(`You have reached your maximum amount of accounts to track. Consider removing some! You are tracking ${user.trackedAccounts.length} profiles`)
+    } else {
       await User.addToCollection(user.id, 'trackedAccounts', trackedAccount.id);
-
     }
+
+
 
     let embed = await sails.helpers.createProfileEmbed(args.steamId);
 
