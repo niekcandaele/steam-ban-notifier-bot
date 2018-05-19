@@ -96,7 +96,7 @@ async function checkForOngoingMatches(steamId, csgoClient) {
     let accountId = csgoClient.ToAccountID(steamId);
     csgoClient.requestLiveGameForUser(accountId);
 
-    csgoClient.once('matchList', (data) => {
+    csgoClient.once('matchList', async (data) => {
 
       if (data.matches[0]) {
         let steamIdsInMatch = new Array();
