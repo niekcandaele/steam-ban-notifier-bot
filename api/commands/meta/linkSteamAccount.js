@@ -31,9 +31,19 @@ If you are unsure how to find a steam ID, you can use https://steamid.io/lookup 
         let steamId = new SteamID.ID(args.steamId);
         args.steamId = steamId.getSteamID64();
 
+        let usersWithSameSteamId = await User.find({
+            steamId: args.steamId,
+            discordId: {'!=': msg.author.id}
+        })
+
+        if (usersWithSameSteamId.length > 0) {
+            await msg.channel.send(`Someone else has already linked this steam ID. Please contact support if you think this is not right.`);
+            return
+        }
+
         // Make sure a user record is created in the database
         let user = await User.findOrCreate({ discordId: msg.author.id }, { discordId: msg.author.id });
-        await User.update({discordId: msg.author.id}, {steamId: args.steamId});
+        await User.update({ discordId: msg.author.id }, { steamId: args.steamId });
 
         await msg.channel.send(`🆗 You have linked your steam id! Make sure you added the steam bot as friend to enable automatic tracking.`)
     }

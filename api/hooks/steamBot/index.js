@@ -62,7 +62,7 @@ module.exports = function defineSteamBotHook(sails) {
             let steamIdsToCheckForOngoingMatch = loadSteamFriends(steamFriends);
 
             for (const steamId of steamIdsToCheckForOngoingMatch) {
-              await checkForOngoingMatches(steamId, CSGOCli);
+              checkForOngoingMatches(steamId, CSGOCli);
             }
 
             sails.log.debug(`Checked ${steamIdsToCheckForOngoingMatch.length} players for ongoing matches`)
