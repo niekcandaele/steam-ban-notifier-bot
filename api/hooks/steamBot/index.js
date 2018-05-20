@@ -72,7 +72,7 @@ module.exports = function defineSteamBotHook(sails) {
               await checkForOngoingMatches(steamId, CSGOCli);
             }
 
-            sails.log.info(`Finished checking ${steamIdsToCheckForOngoingMatch.length} players for ongoing matches - ${Date.now() - startCheck} ms`);
+            sails.log.debug(`Finished checking ${steamIdsToCheckForOngoingMatch.length} players for ongoing matches - ${Date.now() - startCheck} ms`);
 
             setTimeout(() => {
               return cb(cb);
@@ -80,20 +80,6 @@ module.exports = function defineSteamBotHook(sails) {
           }
 
           tickerFunction(tickerFunction);
-
-          // setInterval(async () => {
-          //   let steamIdsToCheckForOngoingMatch = loadSteamFriends(steamFriends);
-
-          //   let startCheck = Date.now();
-          //   sails.log.debug(`Starting check for ongoing matches -  ${steamIdsToCheckForOngoingMatch.length} players to check`);
-
-          //   for (const steamId of steamIdsToCheckForOngoingMatch) {
-          //     await checkForOngoingMatches(steamId, CSGOCli);
-          //   }
-
-          //   sails.log.debug(`Finished checking ${steamIdsToCheckForOngoingMatch.length} players for ongoing matches - ${Date.now() - startCheck} ms`);
-
-          // }, sails.config.custom.ongoingMatchCheckInterval);
 
           return done();
         });
