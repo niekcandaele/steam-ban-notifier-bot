@@ -7,45 +7,44 @@
 
 module.exports = {
 
-    attributes: {
-  
-      //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
-      //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
-      //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
-  
-      discordId: {
-        type: 'string',
-        unique: true,
-        required: true
-      },
+  attributes: {
 
-      banNotificationChannel: {
-          defaultsTo: '0',
-          type: 'string'
-      },
+    //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
+    //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
+    //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-      globalNotificationChannel: {
-          defaultsTo: '0',
-          type: 'string'
-      },
-  
-  
-      //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
-      //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
-      //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
-  
-  
-      //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
-      //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
-      //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-  
-      trackedAccounts: {
-        collection: 'trackedaccount',
-        via: 'trackedByGuild'
-      },
-  
+    discordId: {
+      type: 'string',
+      unique: true,
+      required: true
     },
-  
-  };
-  
-  
+
+    banNotificationChannel: {
+      defaultsTo: '0',
+      type: 'string'
+    },
+
+    globalNotificationChannel: {
+      defaultsTo: '0',
+      type: 'string'
+    },
+
+
+    //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
+    //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
+    //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
+
+
+    //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
+    //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
+    //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
+
+    trackedAccounts: {
+      collection: 'trackedaccount',
+      via: 'trackedByGuild'
+    },
+
+  },
+
+};
+

@@ -1,4 +1,3 @@
-const Discord = require('discord.js');
 const Commando = require('discord.js-commando');
 const SteamID = require('@node-steam/id');
 
@@ -23,8 +22,8 @@ class Remove extends Commando.Command {
 
     if (!checkSteamId(args.steamId)) {
       msg.channel.send(`You have provided an invalid steam ID! Make sure you're inputting a user id and not a group or other type of ID.
-If you are unsure how to find a steam ID, you can use https://steamid.io/lookup or https://steamidfinder.com/lookup/`)
-      return
+If you are unsure how to find a steam ID, you can use https://steamid.io/lookup or https://steamidfinder.com/lookup/`);
+      return;
     }
 
     args.steamId = new SteamID.ID(args.steamId);
@@ -60,8 +59,8 @@ function checkSteamId(val) {
   try {
     let steamId = new SteamID.ID(val);
     let type = steamId.getType();
-    return type === "INDIVIDUAL"
-  } catch (error) {
-    return false
+    return type === 'INDIVIDUAL';
+  } catch (error) { // eslint-disable-line no-unused-vars
+    return false;
   }
 }

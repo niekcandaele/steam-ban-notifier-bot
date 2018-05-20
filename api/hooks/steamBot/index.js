@@ -20,34 +20,32 @@ module.exports = function defineSteamBotHook(sails) {
 
       sails.on('hook:orm:loaded', async () => {
 
-        var Steam = require("steam"),
-          util = require("util"),
-          fs = require("fs"),
-          csgo = require("csgo"),
-          bot = new Steam.SteamClient(),
-          steamUser = new Steam.SteamUser(bot),
-          steamFriends = new Steam.SteamFriends(bot),
-          steamGC = new Steam.SteamGameCoordinator(bot, 730),
-          CSGOCli = new csgo.CSGOClient(steamUser, steamGC, false)
+        const Steam = require('steam');
+        const csgo = require('csgo');
+        const bot = new Steam.SteamClient();
+        const steamUser = new Steam.SteamUser(bot);
+        const steamFriends = new Steam.SteamFriends(bot);
+        const steamGC = new Steam.SteamGameCoordinator(bot, 730);
+        const CSGOCli = new csgo.CSGOClient(steamUser, steamGC, false);
 
 
         let users = await sails.models.user.find({}).populate('trackedAccounts');
-        console.log(users)
+        console.log(users);
 
         bot.connect();
 
         bot.on('connected', () => {
           sails.log.debug('Connected to steam, trying to log in');
           steamUser.logOn({
-            "account_name": process.env.STEAM_USERNAME,
-            "password": process.env.STEAM_PW
-          })
+            'account_name': process.env.STEAM_USERNAME,
+            'password': process.env.STEAM_PW
+          });
 
-        })
+        });
 
 
-        bot.on("logOnResponse", (response) => {
-          if (response.eresult == Steam.EResult.OK) {
+        bot.on('logOnResponse', (response) => {
+          if (response.eresult === Steam.EResult.OK) {
             sails.log.info('Logged in to steam!');
             CSGOCli.launch();
 
@@ -56,7 +54,7 @@ module.exports = function defineSteamBotHook(sails) {
             sails.log.error('error, ', response);
             process.exit();
           }
-        })
+        });
 
 
         CSGOCli.on('ready', () => {
@@ -69,12 +67,12 @@ module.exports = function defineSteamBotHook(sails) {
               await checkForOngoingMatches(steamId, CSGOCli);
             }
 
-            sails.log.debug(`Checked ${steamIdsToCheckForOngoingMatch.length} players for ongoing matches`)
+            sails.log.debug(`Checked ${steamIdsToCheckForOngoingMatch.length} players for ongoing matches`);
 
-          }, sails.config.custom.ongoingMatchCheckInterval)
+          }, sails.config.custom.ongoingMatchCheckInterval);
 
           return done();
-        })
+        });
 
 
       });
@@ -101,7 +99,7 @@ function loadSteamFriends(steamFriends) {
 // Checks if any of the bots friend are in a match.
 // If they are, a list of all connected steamIds is collected and added to the users tracking list.
 async function checkForOngoingMatches(steamId, csgoClient) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     let user = await sails.models.user.findOne({ steamId: steamId });
     let accountId = csgoClient.ToAccountID(steamId);
     csgoClient.requestLiveGameForUser(accountId);
@@ -119,15 +117,15 @@ async function checkForOngoingMatches(steamId, csgoClient) {
           let trackedAccount = await TrackedAccount.findOrCreate({ steamId: steamIdToTrack }, { steamId: steamIdToTrack });
           if (user) {
             await sails.models.user.addToCollection(user.id,'trackedAccounts', trackedAccount.id);
-            sails.log.debug(`Added account ${trackedAccount.id} to user ${user.id}'s list`)
+            sails.log.debug(`Added account ${trackedAccount.id} to user ${user.id}'s list`);
           }
         }
 
       }
       resolve();
-    })
+    });
 
-  })
+  });
 
 
 

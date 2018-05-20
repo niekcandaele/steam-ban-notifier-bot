@@ -22,39 +22,39 @@
 const winston = require('winston');
 
 let customLogger = new winston.Logger({
- transports: [
-   new winston.transports.Console({
-     level: 'silly',
-     colorize: true,
-     timestamp: true,
-     humanReadableUnhandledException: true
-   }),
-   new winston.transports.File({
-     level: 'info',
-     name: 'infolog',
-     timestamp: true,
-     humanReadableUnhandledException: true,
-     filename: './logs/prod.log',
-     tailable: true,
-     maxsize: 1000,
-     maxFiles: 3,
-     json: false,
-     colorize: true
-   }),
-   new winston.transports.File({
-     level: 'debug',
-     name: 'debuglog',
-     timestamp: true,
-     humanReadableUnhandledException: true,
-     filename: './logs/debug.log',
-     tailable: true,
-     maxsize: 1000,
-     maxFiles: 5,
-     json: false,
-     colorize: true
-   })
- ]
-})
+  transports: [
+    new winston.transports.Console({
+      level: 'silly',
+      colorize: true,
+      timestamp: true,
+      humanReadableUnhandledException: true
+    }),
+    new winston.transports.File({
+      level: 'info',
+      name: 'infolog',
+      timestamp: true,
+      humanReadableUnhandledException: true,
+      filename: './logs/prod.log',
+      tailable: true,
+      maxsize: 1000,
+      maxFiles: 3,
+      json: false,
+      colorize: true
+    }),
+    new winston.transports.File({
+      level: 'debug',
+      name: 'debuglog',
+      timestamp: true,
+      humanReadableUnhandledException: true,
+      filename: './logs/debug.log',
+      tailable: true,
+      maxsize: 1000,
+      maxFiles: 5,
+      json: false,
+      colorize: true
+    })
+  ]
+});
 
 module.exports = {
 
@@ -84,8 +84,8 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     default: {
-       adapter: 'sails-mysql',
-       url: process.env.DBSTRING,
+      adapter: 'sails-mysql',
+      url: process.env.DBSTRING,
       // ssl: true,
 
     },
@@ -389,11 +389,11 @@ module.exports = {
   ***************************************************************************/
   custom: {
 
-  maxPlayersToCheckPerInterval: 50,
+    maxPlayersToCheckPerInterval: 50,
     // 1800000 Ms = 30 minutes
-  intervalToSendBanChecksMs: 1800000,
+    intervalToSendBanChecksMs: 1800000,
 
-  ongoingMatchCheckInterval: 600000,
+    ongoingMatchCheckInterval: 600000,
 
   },
 
