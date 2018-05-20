@@ -72,7 +72,7 @@ module.exports = function defineSteamBotHook(sails) {
               await checkForOngoingMatches(steamId, CSGOCli);
             }
 
-            sails.log.debug(`Finished checking ${steamIdsToCheckForOngoingMatch.length} players for ongoing matches - ${Date.now() - startCheck} ms`);
+            sails.log.info(`Finished checking ${steamIdsToCheckForOngoingMatch.length} players for ongoing matches - ${Date.now() - startCheck} ms`);
 
             setTimeout(() => {
               return cb(cb);

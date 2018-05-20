@@ -81,5 +81,5 @@ client.on('guildCreate', async (guild) => {
 });
 
 client.on('commandRun', (command, promise, message) => {
-  sails.log.info(`${command.name} ran by ${message.author.username} - ${message.content}`);
+  sails.log.info(`${command.name} ran by ${message.author.username} - ${message.content}`, {guild: message.guild ? message.guild.name : "DM"});
 });
