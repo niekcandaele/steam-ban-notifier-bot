@@ -88,7 +88,7 @@ module.exports = function defineSteamBotHook(sails) {
             let steamIdsInMatch = new Array();
 
             for (const accountId of data.matches[0].roundstats_legacy.reservation.account_ids) {
-              steamIdsInMatch.push(csgoClient.ToSteamID(accountId));
+              steamIdsInMatch.push(CSGOCli.ToSteamID(accountId));
             }
 
             let usersInMatch = await User.find({ steamId: steamIdsInMatch });
