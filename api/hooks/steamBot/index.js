@@ -66,7 +66,7 @@ module.exports = function defineSteamBotHook(sails) {
             let steamIdsToCheckForOngoingMatch = loadSteamFriends(steamFriends);
 
             let startCheck = Date.now();
-            sails.log.debug(`Starting check for ongoing matches -  ${steamIdsToCheckForOngoingMatch.length} players to check`);
+            sails.log.verbose(`Starting check for ongoing matches -  ${steamIdsToCheckForOngoingMatch.length} players to check`);
 
             for (const steamId of steamIdsToCheckForOngoingMatch) {
               await checkForOngoingMatches(steamId, CSGOCli);
@@ -101,7 +101,9 @@ module.exports = function defineSteamBotHook(sails) {
 
         CSGOCli.on('matchList', async (data) => {
 
-          sails.log.debug(`Received a matchList with ${data.matches.length} matches.`);
+          if (data.matches.length) {
+            sails.log.debug(`Received a matchList with ${data.matches.length} match(es).`);
+          }
 
           if (data.matches[0]) {
             let steamIdsInMatch = new Array();
@@ -151,7 +153,7 @@ function loadSteamFriends(steamFriends) {
 // Checks if any of the bots friend are in a match.
 // If they are, a list of all connected steamIds is collected and added to the users tracking list.
 async function checkForOngoingMatches(steamId, csgoClient) {
-  sails.log.debug(`Checking if ${steamId} is playing a match.`);
+  sails.log.verbose(`Checking if ${steamId} is playing a match.`);
   return new Promise(async (resolve) => {
     let accountId = csgoClient.ToAccountID(steamId);
     csgoClient.requestLiveGameForUser(accountId);
