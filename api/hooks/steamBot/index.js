@@ -28,10 +28,6 @@ module.exports = function defineSteamBotHook(sails) {
         const steamGC = new Steam.SteamGameCoordinator(bot, 730);
         const CSGOCli = new csgo.CSGOClient(steamUser, steamGC, false);
 
-
-        let users = await sails.models.user.find({}).populate('trackedAccounts');
-        console.log(users);
-
         bot.connect();
 
         bot.on('connected', () => {
@@ -47,6 +43,12 @@ module.exports = function defineSteamBotHook(sails) {
         bot.on('logOnResponse', (response) => {
           if (response.eresult === Steam.EResult.OK) {
             sails.log.info('Logged in to steam!');
+            steamFriends.setPersonaState(Steam.EPersonaState.Online);
+
+            CSGOCli.on('unhandled', (message) => {
+              sails.log.warn(`Unhandled CSGO client event`, message);
+            });
+
             CSGOCli.launch();
 
           }
@@ -63,15 +65,46 @@ module.exports = function defineSteamBotHook(sails) {
           setInterval(async () => {
             let steamIdsToCheckForOngoingMatch = loadSteamFriends(steamFriends);
 
+            let startCheck = Date.now();
+            sails.log.debug(`Starting check for ongoing matches -  ${steamIdsToCheckForOngoingMatch.length} players to check`);
+
             for (const steamId of steamIdsToCheckForOngoingMatch) {
               await checkForOngoingMatches(steamId, CSGOCli);
             }
 
-            sails.log.debug(`Checked ${steamIdsToCheckForOngoingMatch.length} players for ongoing matches`);
+            sails.log.debug(`Finished checking ${steamIdsToCheckForOngoingMatch.length} players for ongoing matches - ${Date.now() - startCheck} ms`);
 
           }, sails.config.custom.ongoingMatchCheckInterval);
 
           return done();
+        });
+
+
+        CSGOCli.on('matchList', async (data) => {
+
+          sails.log.debug(`Received a matchList with ${data.matches.length} matches.`);
+
+          if (data.matches[0]) {
+            let steamIdsInMatch = new Array();
+
+            for (const accountId of data.matches[0].roundstats_legacy.reservation.account_ids) {
+              steamIdsInMatch.push(csgoClient.ToSteamID(accountId));
+            }
+
+            let usersInMatch = await User.find({ steamId: steamIdsInMatch });
+
+            sails.log.debug(`Found ${usersInMatch.length} in match.`);
+
+            for (const steamIdToTrack of steamIdsInMatch) {
+              let trackedAccount = await TrackedAccount.findOrCreate({ steamId: steamIdToTrack }, { steamId: steamIdToTrack });
+
+              await sails.models.user.addToCollection(usersInMatch.map(user => user.id), 'trackedAccounts', trackedAccount.id);
+              sails.log.debug(`Added account ${trackedAccount.id} to ${usersInMatch.length} users' tracking list`, usersInMatch.map(user => user.id));
+
+            }
+
+          }
+
         });
 
 
@@ -99,37 +132,14 @@ function loadSteamFriends(steamFriends) {
 // Checks if any of the bots friend are in a match.
 // If they are, a list of all connected steamIds is collected and added to the users tracking list.
 async function checkForOngoingMatches(steamId, csgoClient) {
+  sails.log.debug(`Checking if ${steamId} is playing a match.`);
   return new Promise(async (resolve) => {
-    let user = await sails.models.user.findOne({ steamId: steamId });
     let accountId = csgoClient.ToAccountID(steamId);
     csgoClient.requestLiveGameForUser(accountId);
 
-    csgoClient.once('matchList', async (data) => {
-
-      if (data.matches[0]) {
-        let steamIdsInMatch = new Array();
-
-        for (const accountId of data.matches[0].roundstats_legacy.reservation.account_ids) {
-          steamIdsInMatch.push(csgoClient.ToSteamID(accountId));
-        }
-
-        for (const steamIdToTrack of steamIdsInMatch) {
-          let trackedAccount = await TrackedAccount.findOrCreate({ steamId: steamIdToTrack }, { steamId: steamIdToTrack });
-          if (user) {
-            await sails.models.user.addToCollection(user.id,'trackedAccounts', trackedAccount.id);
-            sails.log.debug(`Added account ${trackedAccount.id} to user ${user.id}'s list`);
-          }
-        }
-
-      }
-      resolve();
-    });
+    setTimeout(resolve, 1000);
 
   });
-
-
-
-
 }
 
 
