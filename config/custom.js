@@ -26,9 +26,10 @@ module.exports.custom = {
 
   steamAPIkey: process.env.STEAM_API_KEY,
 
-  maxPlayersToCheckPerInterval: 50,
+  maxPlayersToCheckPerInterval: 30,
     // 1800000 Ms = 30 minutes
-  intervalToSendBanChecksMs: 30000,
+  intervalToSendBanChecksMs: 20000,
+  ongoingMatchCheckInterval: 30000,
 
   maxAccountsTrackedByUser: 50,
   maxAccountsTrackedByServer: 250,

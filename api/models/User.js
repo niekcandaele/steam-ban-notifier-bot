@@ -19,6 +19,10 @@ module.exports = {
       required: true
     },
 
+    steamId: {
+      type: 'string'
+    },
+
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗

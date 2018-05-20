@@ -393,6 +393,8 @@ module.exports = {
     // 1800000 Ms = 30 minutes
   intervalToSendBanChecksMs: 1800000,
 
+  ongoingMatchCheckInterval: 600000,
+
   },
 
 
