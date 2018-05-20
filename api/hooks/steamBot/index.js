@@ -30,6 +30,10 @@ module.exports = function defineSteamBotHook(sails) {
           steamGC = new Steam.SteamGameCoordinator(bot, 730),
           CSGOCli = new csgo.CSGOClient(steamUser, steamGC, false)
 
+
+        let users = await sails.models.user.find({}).populate('trackedAccounts');
+        console.log(users)
+
         bot.connect();
 
         bot.on('connected', () => {
@@ -62,7 +66,7 @@ module.exports = function defineSteamBotHook(sails) {
             let steamIdsToCheckForOngoingMatch = loadSteamFriends(steamFriends);
 
             for (const steamId of steamIdsToCheckForOngoingMatch) {
-              checkForOngoingMatches(steamId, CSGOCli);
+              await checkForOngoingMatches(steamId, CSGOCli);
             }
 
             sails.log.debug(`Checked ${steamIdsToCheckForOngoingMatch.length} players for ongoing matches`)
@@ -97,8 +101,8 @@ function loadSteamFriends(steamFriends) {
 // Checks if any of the bots friend are in a match.
 // If they are, a list of all connected steamIds is collected and added to the users tracking list.
 async function checkForOngoingMatches(steamId, csgoClient) {
-  return new Promise( async (resolve, reject) => {
-    let user = await sails.models.user.find({steamId: steamId});
+  return new Promise(async (resolve, reject) => {
+    let user = await sails.models.user.findOne({ steamId: steamId });
     let accountId = csgoClient.ToAccountID(steamId);
     csgoClient.requestLiveGameForUser(accountId);
 
@@ -107,13 +111,16 @@ async function checkForOngoingMatches(steamId, csgoClient) {
       if (data.matches[0]) {
         let steamIdsInMatch = new Array();
 
-        for (const accountId of data.matches[0].reservation.account_ids) {
+        for (const accountId of data.matches[0].roundstats_legacy.reservation.account_ids) {
           steamIdsInMatch.push(csgoClient.ToSteamID(accountId));
         }
 
         for (const steamIdToTrack of steamIdsInMatch) {
           let trackedAccount = await TrackedAccount.findOrCreate({ steamId: steamIdToTrack }, { steamId: steamIdToTrack });
-
+          if (user) {
+            await sails.models.user.addToCollection(user.id,'trackedAccounts', trackedAccount.id);
+            sails.log.debug(`Added account ${trackedAccount.id} to user ${user.id}'s list`)
+          }
         }
 
       }
