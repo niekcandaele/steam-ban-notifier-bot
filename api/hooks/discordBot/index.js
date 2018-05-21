@@ -8,6 +8,8 @@ const client = new Commando.Client({
   unknownCommandResponse: false,
   invite: 'https://discordapp.com/invite/kuDJG6e'
 });
+
+sails.discordClient = client
 /**
  * DiscordBot hook
  *
