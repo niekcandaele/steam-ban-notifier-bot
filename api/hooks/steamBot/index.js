@@ -28,6 +28,10 @@ module.exports = function defineSteamBotHook(sails) {
         const steamGC = new Steam.SteamGameCoordinator(bot, 730);
         const CSGOCli = new csgo.CSGOClient(steamUser, steamGC, false);
 
+
+        const FriendHandler = require("./friendHandler.js");
+        const friendHandler = new FriendHandler(steamFriends);
+
         bot.connect();
 
         bot.on('connected', () => {
