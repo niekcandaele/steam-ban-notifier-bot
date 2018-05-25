@@ -13,16 +13,20 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    discordId: {
+    steamId: {
       type: 'string',
-      unique: true,
-      required: true
+      required: true,
+      unique: true
     },
 
-    steamId: {
+    discordId: {
       type: 'string'
     },
 
+
+    avatar: {
+      type: 'string'
+    },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗

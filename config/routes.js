@@ -28,6 +28,10 @@ module.exports.routes = {
     view: 'pages/homepage'
   },
 
+  '/dashboard': {
+    view: 'pages/dashboard'
+  },
+
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *
@@ -54,6 +58,11 @@ module.exports.routes = {
   //  ╔╦╗╦╔═╗╔═╗
   //  ║║║║╚═╗║
   //  ╩ ╩╩╚═╝╚═╝
+
+  '/login' : 'AuthController.steamLogin',
+  '/login/discord' : 'AuthController.discordLogin',
+  '/auth/steam/return': "AuthController.steamReturn",
+  '/auth/discord/return': "AuthController.discordReturn"
 
 
 };
