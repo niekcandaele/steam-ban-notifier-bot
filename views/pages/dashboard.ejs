@@ -11,14 +11,46 @@
       </div>
       <div class="col s4">
 
-          <a href="/login/discord" class="btn-large waves-effect waves-light blue">
-            <i class="fab fa-discord"></i> Link profile</a>
+        <a href="/login/discord" class="btn-large waves-effect waves-light blue">
+          <i class="fab fa-discord"></i> Link profile</a>
 
       </div>
 
+    </div>
+
+    <div class="row">
+      <h2>Tracked accounts</h2>
+      <table id="table-trackedaccounts"></table>
     </div>
 
 
 
   </div>
 </body>
+
+
+<script>
+
+  $(document).ready(() => {
+    console.log('Ready');
+
+    $.get('/api/user/trackedaccount', (data, status, xhr) => {
+      console.log(data)
+
+      $('#table-trackedaccounts').bootstrapTable({
+        columns: [{
+          field: 'steamId',
+          title: 'Steam ID'
+        }, {
+          field: 'vacBanned',
+          title: 'VAC'
+        }, {
+          field: 'numberOfGameBans',
+          title: 'Game bans'
+        }],
+        data: data
+      });
+    })
+  })
+
+</script>
