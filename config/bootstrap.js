@@ -11,5 +11,11 @@
 
 module.exports.bootstrap = async function (done) {
 
+  if (process.env.NODE_ENV !== 'production') {
+    let madeAcc = await TrackedAccount.findOrCreate({steamId: "76561198028175941"}, {steamId: "76561198028175941"});
+    let cataUser = await User.findOrCreate({steamId: "76561198028175941"}, {steamId: "76561198028175941"});
+    await User.addToCollection(cataUser.id, 'trackedAccounts', madeAcc.id)
+  }
+
   return done();
 };
