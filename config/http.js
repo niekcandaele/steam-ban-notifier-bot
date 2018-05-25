@@ -41,7 +41,7 @@ passport.use(new SteamStrategy({
       avatar: profile._json.avatarfull
     }).fetch()
 
-  return done(null, updatedUser);
+  return done(null, updatedUser[0]);
 }));
 
 /** 
