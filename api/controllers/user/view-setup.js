@@ -23,7 +23,7 @@ module.exports = {
   
   
     fn: async function (inputs, exits) {
-  
+      sails.log.info(`Serving setup view to user ${this.req.session.userId}`)
       return exits.success();
   
     }

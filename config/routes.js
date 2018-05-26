@@ -47,11 +47,15 @@ module.exports.routes = {
   //  ╠═╣╠═╝║  ║╣ ║║║ ║║╠═╝║ ║║║║║ ║ ╚═╗
   //  ╩ ╩╩  ╩  ╚═╝╝╚╝═╩╝╩  ╚═╝╩╝╚╝ ╩ ╚═╝
 
+  'get /api/user': 'UserController.get-profile',
+
   'get /api/user/trackedaccount': 'UserController.get-tracked-accounts',
+
   'get /api/user/steam/friendStatus': "SteamBotController.check-if-friend",
-  'get /api/user/discord/mutualGuild' : "DiscordBotController.check-mutual-guild",
-  'get /api/user/discord/openDM' : "DiscordBotController.check-open-dm",
-  'get /api/user/discord/testDM' : 'DiscordBotController.test-dm',
+  
+  'get /api/user/discord/mutualGuild' : "discord-bot.check-mutual-guild",
+  'get /api/user/discord/openDM' : "discord-bot.check-open-dm",
+  'get /api/user/discord/testDM' : 'discord-bot.test-dm',
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
   //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
