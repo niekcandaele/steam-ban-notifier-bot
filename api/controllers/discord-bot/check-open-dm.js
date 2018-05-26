@@ -37,7 +37,7 @@ module.exports = {
     }
 
     try {
-      let dmChannel = await discordUser.openDM();
+      let dmChannel = await discordUser.createDM();
 
       sails.log.debug(`Checking if we can send DM to discord user ${user.discordId} ${dmChannel ? true : false}`)
 
@@ -48,6 +48,7 @@ module.exports = {
       }
 
     } catch (error) {
+      sails.log.warn(error);
       return exits.success(false);
     }
 
