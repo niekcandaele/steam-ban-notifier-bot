@@ -29,7 +29,11 @@ module.exports = {
                 };
                 sails.log.info(`User ${user.id} successfully logged in`, user);
                 req.session.userId = user.id;
-                res.redirect('/dashboard');
+                if (!user.discordId) {
+                    res.redirect('/setup')
+                } else {
+                    res.redirect('/dashboard');
+                }
             })(req, res);
     },
     discordLogin: function (req, res, next) {

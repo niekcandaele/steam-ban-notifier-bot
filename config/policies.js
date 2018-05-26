@@ -19,4 +19,9 @@ module.exports.policies = {
 
   // '*': true,
 
+  UserController: {
+    'view-dashboard': 'isLoggedIn',
+    'view-setup': 'isLoggedIn',
+  }
+
 };
