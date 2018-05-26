@@ -22,6 +22,10 @@ module.exports = function defineDiscordBotHook(sails) {
 
   return {
 
+    getClient: () => {
+      return client;
+    }
+
     /**
          * Runs when a Sails app loads/lifts.
          *

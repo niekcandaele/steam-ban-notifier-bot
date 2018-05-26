@@ -5,6 +5,14 @@
  * @docs        :: https://sailsjs.com/docs/concepts/extending-sails/hooks
  */
 
+const Steam = require('steam');
+const csgo = require('csgo');
+const bot = new Steam.SteamClient();
+const steamUser = new Steam.SteamUser(bot);
+const steamFriends = new Steam.SteamFriends(bot);
+const steamGC = new Steam.SteamGameCoordinator(bot, 730);
+const CSGOCli = new csgo.CSGOClient(steamUser, steamGC, false);
+
 module.exports = function defineSteamBotHook(sails) {
 
   return {
@@ -14,20 +22,11 @@ module.exports = function defineSteamBotHook(sails) {
      *
      * @param {Function} done
      */
-    initialize: function (done) {
+    initialize: (done) => {
 
       sails.log.info('Initializing custom hook (`steamBot`)');
 
       sails.on('hook:discordbot:loaded', async () => {
-
-        const Steam = require('steam');
-        const csgo = require('csgo');
-        const bot = new Steam.SteamClient();
-        const steamUser = new Steam.SteamUser(bot);
-        const steamFriends = new Steam.SteamFriends(bot);
-        const steamGC = new Steam.SteamGameCoordinator(bot, 730);
-        const CSGOCli = new csgo.CSGOClient(steamUser, steamGC, false);
-
 
         const FriendHandler = require("./friendHandler.js");
         const friendHandler = new FriendHandler(steamFriends);
@@ -120,6 +119,13 @@ module.exports = function defineSteamBotHook(sails) {
 
 
       });
+    },
+
+    getFriendStatus: async (steamId) => {
+      let friendListArray = loadSteamFriends(steamFriends);
+      let idx = friendListArray.indexOf(steamId);
+
+      return idx !== -1
     }
 
   };

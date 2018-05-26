@@ -48,6 +48,8 @@ module.exports.routes = {
   //  ╩ ╩╩  ╩  ╚═╝╝╚╝═╩╝╩  ╚═╝╩╝╚╝ ╩ ╚═╝
 
   'get /api/user/trackedaccount': 'UserController.get-tracked-accounts',
+  'get /api/user/steam/friendStatus': "SteamBotController.check-if-friend",
+  'get /api/user/discord/mutualGuild' : "DiscordBotContoller.check-mutual-guild",
 
 
 
