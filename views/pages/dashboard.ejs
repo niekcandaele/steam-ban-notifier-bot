@@ -1,9 +1,9 @@
 <body>
-  <div class="container">
+  <div class="container white-text" >
 
     <div class="row">
       <div class="col s4">
-        <h1 class="white-text">Dashboard</h1>
+        <h1 >Dashboard</h1>
       </div>
       <div class="col s4">
         <a href="https://discordapp.com/api/oauth2/authorize?client_id=441593020442345499&permissions=18432&scope=bot" class="btn-large waves-effect waves-light blue">
@@ -32,10 +32,8 @@
 <script>
 
   $(document).ready(() => {
-    console.log('Ready');
 
     $.get('/api/user/trackedaccount', (data, status, xhr) => {
-      console.log(data)
 
       $('#table-trackedaccounts').bootstrapTable({
         columns: [{

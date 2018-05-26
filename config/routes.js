@@ -28,9 +28,8 @@ module.exports.routes = {
     view: 'pages/homepage'
   },
 
-  '/dashboard': {
-    view: 'pages/dashboard'
-  },
+  '/dashboard': "UserController.view-dashboard",
+  '/setup': "UserController.view-setup",
 
   /***************************************************************************
   *                                                                          *
