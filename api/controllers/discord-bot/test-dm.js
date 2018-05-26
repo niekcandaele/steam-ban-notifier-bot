@@ -38,8 +38,8 @@ module.exports = {
     }
 
     try {
-      let dmChannel = await discordUser.openDM();
-      await dmChannel.send(`This is a test message! If you received this, means everything is working as it should! If you didn't receive this, well you better stop reading.. `)
+      let dmChannel = await discordUser.createDM();
+      await dmChannel.send(`This is a test message! If you received this, means everything is working as it should!`)
       return exits.success(true);
     } catch (error) {
       sails.log.warn(error);
