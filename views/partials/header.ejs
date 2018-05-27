@@ -1,13 +1,42 @@
 <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="/">Home</a></li>
-        <li><a href="/dashboard">Dashboard</a></li>
-      </ul>
+  <div class="nav-wrapper container">
+    <a id="logo-container" href="#" class="brand-logo"></a>
+    <ul class="right hide-on-med-and-down">
+      <li>
+        <a href="/">Home</a>
+      </li>
+      <li>
+        <a href="/dashboard">Dashboard</a>
+      </li>
+      <li>
+          <img id="profile-picture" class="circle">
+      </li>
+    </ul>
 
-      <!-- <ul id="nav-mobile" class="sidenav">
+    <!-- <ul id="nav-mobile" class="sidenav">
         <li><a href="#">Navbar Link</a></li>
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
-    </div>
-  </nav>
+  </div>
+</nav>
+
+
+<script>
+  $(document).ready(function () {
+
+    $.get('/api/user/', (data, status, xhr) => {
+      $('#profile-picture').attr('src', data.avatar);
+    })
+
+  })
+
+</script>
+
+
+<style>
+
+#profile-picture {
+  width: 25%;
+}
+
+</style>

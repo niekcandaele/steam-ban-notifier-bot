@@ -18,6 +18,10 @@ module.exports = {
   
   
     fn: async function (inputs, exits) {
+
+    if (_.isUndefined(this.req.session.userId)) {
+        return exits.success(undefined);
+    }
   
       let user = await User.findOne(this.req.session.userId);
   
