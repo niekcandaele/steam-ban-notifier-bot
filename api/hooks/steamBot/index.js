@@ -7,6 +7,7 @@
 
 const Steam = require('steam');
 const csgo = require('csgo');
+const Long = require('long');
 const bot = new Steam.SteamClient();
 const steamUser = new Steam.SteamUser(bot);
 const steamFriends = new Steam.SteamFriends(bot);
@@ -65,6 +66,9 @@ module.exports = function defineSteamBotHook(sails) {
         CSGOCli.on('ready', () => {
           sails.log.info('Launched CSGO');
 
+          // Left in for dev, easy match data :)
+          // CSGOCli.requestCurrentLiveGames()
+
           let tickerFunction = async (cb) => {
             let steamIdsToCheckForOngoingMatch = loadSteamFriends(steamFriends);
 
@@ -94,10 +98,19 @@ module.exports = function defineSteamBotHook(sails) {
             sails.log.debug(`Received a matchList with ${data.matches.length} match(es).`);
           }
 
-          if (data.matches[0]) {
+          for (const match of data.matches) {
+            let matchId = new Long(match.matchid.low, match.matchid.high, match.matchid.unsigned);
+            matchId = matchId.toString();
+
+            let matchRecord = await CsgoMatch.findOrCreate({ matchId: matchId }, {
+              matchId: matchId,
+              map: match.watchablematchinfo.game_map
+            });
+
+
             let steamIdsInMatch = new Array();
 
-            for (const accountId of data.matches[0].roundstats_legacy.reservation.account_ids) {
+            for (const accountId of match.roundstats_legacy.reservation.account_ids) {
               steamIdsInMatch.push(CSGOCli.ToSteamID(accountId));
             }
 
@@ -109,11 +122,12 @@ module.exports = function defineSteamBotHook(sails) {
               let trackedAccount = await TrackedAccount.findOrCreate({ steamId: steamIdToTrack }, { steamId: steamIdToTrack });
 
               await sails.models.user.addToCollection(usersInMatch.map(user => user.id), 'trackedAccounts', trackedAccount.id);
-              sails.log.debug(`Added account ${trackedAccount.id} to ${usersInMatch.length} users' tracking list`, usersInMatch.map(user => user.id));
-
+              await sails.models.csgomatch.addToCollection(matchRecord.id, 'players', usersInMatch.map(user => user.id));
             }
-
+            sails.log.debug(`Handled a match!`, matchRecord, usersInMatch.map(user => user.id));
           }
+
+
 
         });
 
