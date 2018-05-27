@@ -89,7 +89,11 @@
         if (data) {
           alert('Success!')
         } else {
-          alert('Error! Please check your settings. Check out this link with additional info about DMs from Discord - https://support.discordapp.com/hc/en-us/articles/217916488-Blocking-Privacy-Settings-')
+          alert(`Could not send a DM! Please check your Discord privacy settings. 
+Make sure you share atleast one guild with the bot and that you allow DMs from that guild
+
+
+Check out this link with additional info about your privacy settings from Discord - https://support.discordapp.com/hc/en-us/articles/217916488-Blocking-Privacy-Settings-`)
         }
       },
       error: (xhr, status, error) => {
@@ -148,7 +152,7 @@
         let statusTextToSet = new String();
         if (data.discordId) {
           statusTextToSet =
-            `🆗 You have linked ${data.discordId} to the system.`
+            `🆗 You have linked discord ID ${data.discordId} to the system.`
         } else {
           statusTextToSet =
             `❌ No discord profile info detected!`
