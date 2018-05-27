@@ -35,11 +35,10 @@ module.exports = {
     if (!discordUser) {
       return exits.success(false);
     }
+    sails.log.debug(`Checking if we can send DM to discord user ${user.discordId}`)
 
     try {
       let dmChannel = await discordUser.createDM();
-
-      sails.log.debug(`Checking if we can send DM to discord user ${user.discordId} ${dmChannel ? true : false}`)
 
       if (!dmChannel) {
         return exits.success(false);

@@ -28,6 +28,27 @@
 
     <div class="row">
       <div class="col s8">
+        <h2>Link discord</h2>
+        <p>Link your discord profile so we know who to send a message, duh! :D</p>
+      </div>
+
+      <div class="col s4">
+        <a href="/login/discord" target="_blank" class="btn-large waves-effect waves-light blue">
+          <i class="fab fa-discord"></i> Link profile</a>
+
+
+        <div id="discord-profile-status">
+          Checking if you have linked your discord ID
+        </div>
+      </div>
+
+    </div>
+
+
+    <hr>
+
+    <div class="row">
+      <div class="col s8">
         <h2>Enable DMs</h2>
         <p>To make sure the bot can send you a message when you get banned, you need to share atleast one guild with the bot
           and allow guild members from said guild to DM you.</p>
@@ -39,39 +60,21 @@
       <div class="col s4">
         <a href="https://discordapp.com/api/oauth2/authorize?client_id=441593020442345499&permissions=18432&scope=bot" target="_blank"
           class="btn-large waves-effect waves-light blue">
-          <i class="fab fa-discord"></i> Add bot to server</a>
+          <i class="fab fa-discord"></i> Add bot</a>
+
+          
+        <a href="#" id="test-dm-btn" class="btn-large waves-effect waves-light blue">
+            <i class="fas fa-comment"></i> Test DM</a>
 
         <div id="discord-mutualguild-status">
           MUTUAL GUILD STATUS LOADING
         </div>
 
-
-        <div id="discord-opendmchannel-status">
-          CHECKING IF WE CAN SEND A DISCORD DM
-        </div>
       </div>
 
     </div>
 
-    <hr>
 
-    <div class="row">
-      <div class="col s8">
-        <h2>Link discord</h2>
-        <p>Link your discord profile so we know who to send a message, duh! :D</p>
-      </div>
-
-      <div class="col s4">
-        <a href="/login/discord" class="btn-large waves-effect waves-light blue">
-          <i class="fab fa-discord"></i> Link profile</a>
-
-
-        <div id="discord-profile-status">
-          Checking if you have linked your discord ID
-        </div>
-      </div>
-
-    </div>
   </div>
 </body>
 
@@ -79,64 +82,82 @@
 <script>
   $(document).ready(() => {
 
-        // Perform the checks every 5 seconds.
-        setInterval(() => {
-              // Update steam friend status 
-              $.get('/api/user/steam/friendStatus', (data, statusCode, xhr) => {
+    $("#test-dm-btn").click(e => {
+    $.ajax({
+      url: "/api/user/discord/testDM",
+      success: (data, status, xhr) => {
+        if (data) {
+          alert('Success!')
+        } else {
+          alert('Error! Please check your settings. Check out this link with additional info about DMs from Discord - https://support.discordapp.com/hc/en-us/articles/217916488-Blocking-Privacy-Settings-')
+        }
+      },
+      error: (xhr, status, error) => {
+        console.log(xhr);
+        alert('Error! Please report this on the dev server.')
+      }
+    })
+  })
 
-                  let statusTextToSet = new String();
+    // Perform the checks every 5 seconds.
+    setInterval(() => {
+      // Update steam friend status 
+      $.get('/api/user/steam/friendStatus', (data, statusCode, xhr) => {
 
-                  if (data) {
-                    statusTextToSet = `🆗 You have befriended the bot! Awesome.`
-                  } else {
-                    statusTextToSet =
-                      `❌ Did not detect you on the bots friend list! While this isn't a disaster, automatic tracking of your matches will not be possible.`
-                  }
-                  $("#steam-friend-status").text(statusTextToSet);
-                  })
+        let statusTextToSet = new String();
 
-                // Check if the user shares a discord guild with the bot
-                $.get("/api/user/discord/mutualguild", (data, statusCode, xhr) => {
-                    let statusTextToSet = new String();
-                    if (data) {
-                      statusTextToSet = `🆗 Detected you share a guild with the discord bot!.`
-                    } else {
-                      statusTextToSet = `❌ Looks like you do not share a guild with the discord bot.`
-                    }
-                    $("#discord-mutualguild-status").text(statusTextToSet);
-                    })
+        if (data) {
+          statusTextToSet = `🆗 You have befriended the bot! Awesome.`
+        } else {
+          statusTextToSet =
+            `❌ Did not detect you on the bots friend list! While this isn't a disaster, automatic tracking of your matches will not be possible.`
+        }
+        $("#steam-friend-status").text(statusTextToSet);
+      })
 
-                  // Check if we can open a DM channel to the user
+      // Check if the user shares a discord guild with the bot
+      $.get("/api/user/discord/mutualguild", (data, statusCode, xhr) => {
+        let statusTextToSet = new String();
+        if (data) {
+          statusTextToSet = `🆗 Detected you share a guild with the discord bot.`
+        } else {
+          statusTextToSet = `❌ Looks like you do not share a guild with the discord bot.`
+        }
+        $("#discord-mutualguild-status").text(statusTextToSet);
+      })
 
-                  $.get('api/user/discord/openDM', (data, status, xhr) => {
-                      let statusTextToSet = new String();
-                      if (data) {
-                        statusTextToSet =
-                          `🆗 Succeeded in opening a DM channel to you. This means the bot CAN send messages to you.`
-                      } else {
-                        statusTextToSet =
-                          `❌ Couldn't open a DM channel to you. Please check your privacy settings`
-                      }
-                      $("#discord-opendmchannel-status").text(statusTextToSet);
-                      })
+      // Check if we can open a DM channel to the user
 
-                      
-                  // Check if user has linked discord
+      // $.get('api/user/discord/openDM', (data, status, xhr) => {
+      //   let statusTextToSet = new String();
+      //   console.log(data)
+      //   if (data) {
+      //     statusTextToSet =
+      //       `🆗 Succeeded in opening a DM channel to you. You can test with the test DM button`
+      //   } else {
+      //     statusTextToSet =
+      //       `❌ Couldn't open a DM channel to you. Please check your privacy settings`
+      //   }
+      //   $("#discord-opendmchannel-status").text(statusTextToSet);
+      // })
 
-                  $.get('api/user', (data, status, xhr) => {
-                      let statusTextToSet = new String();
-                      if (data.discordId) {
-                        statusTextToSet =
-                          `🆗 You have linked ${data.discordId} to the system.`
-                      } else {
-                        statusTextToSet =
-                          `❌ No discord profile info detected!`
-                      }
-                      $("#discord-profile-status").text(statusTextToSet);
-                      })
 
-                  })
+      // Check if user has linked discord
 
-              }, 5000);
+      $.get('api/user', (data, status, xhr) => {
+        let statusTextToSet = new String();
+        if (data.discordId) {
+          statusTextToSet =
+            `🆗 You have linked ${data.discordId} to the system.`
+        } else {
+          statusTextToSet =
+            `❌ No discord profile info detected!`
+        }
+        $("#discord-profile-status").text(statusTextToSet);
+      })
+
+    })
+
+  }, 5000);
 
 </script>

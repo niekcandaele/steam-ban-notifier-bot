@@ -6,13 +6,12 @@
         <h1 >Dashboard</h1>
       </div>
       <div class="col s4">
-        <a href="/setup" class="btn-large waves-effect waves-light blue">
-          <i class="fas fa-cogs"></i> Settings</a>
+
       </div>
       <div class="col s4">
 
-        <a href="#" id="test-dm-btn" class="btn-large waves-effect waves-light blue">
-          <i class="fas fa-comment"></i> Test DM</a>
+          <a href="/setup" class="btn-large waves-effect waves-light blue">
+            <i class="fas fa-cogs"></i> Settings</a>
 
       </div>
 
@@ -49,24 +48,6 @@
         data: data
       });
     })
-
-
-  $("#test-dm-btn").click(e => {
-    $.ajax({
-      url: "/api/user/discord/testDM",
-      success: (data, status, xhr) => {
-        if (data) {
-          alert('Success!')
-        } else {
-          alert('Error! Please check your settings.')
-        }
-      },
-      error: (xhr, status, error) => {
-        console.log(xhr);
-        alert('Error! Please report this on the dev server.')
-      }
-    })
-  })
 
   })
 
