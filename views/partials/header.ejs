@@ -1,16 +1,31 @@
 <nav class="light-blue lighten-1" role="navigation">
-  <div class="nav-wrapper container">
+  <div class="nav-wrapper container valign-wrapper">
     <a id="logo-container" href="#" class="brand-logo"></a>
     <ul class="right hide-on-med-and-down">
       <li>
-        <a href="/"><i class="fas fa-home"></i> Home</a>
+        <a href="/">
+          <i class="fas fa-home"></i> Home</a>
       </li>
-      <li>
-        <a href="/dashboard"> <i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      </li>
-      <li>
+      
+      <% if(req.session.userId) { %>
+        <li>
+          <a href="/dashboard">
+            <i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        </li>
+        <li>
+          <a href="/logout">
+            <i class="fas fa-sign-out-alt"> </i>Logout</a>
+        </li>
+        <li>
           <img id="profile-picture" class="circle">
-      </li>
+        </li>
+        <% } else { %>
+          <li>
+              <a href="/login">
+                <img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"> 
+              </a>
+            </li>
+          <% } %>
     </ul>
 
     <!-- <ul id="nav-mobile" class="sidenav">
@@ -34,9 +49,7 @@
 
 
 <style>
-
-#profile-picture {
-  width: 25%;
-}
-
+  #profile-picture {
+    width: 25%;
+  }
 </style>

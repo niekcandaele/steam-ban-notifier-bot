@@ -73,7 +73,8 @@ module.exports.routes = {
   '/login' : 'AuthController.steamLogin',
   '/login/discord' : 'AuthController.discordLogin',
   '/auth/steam/return': "AuthController.steamReturn",
-  '/auth/discord/return': "AuthController.discordReturn"
+  '/auth/discord/return': "AuthController.discordReturn",
+  '/logout': 'AuthController.logout'
 
 
 };
