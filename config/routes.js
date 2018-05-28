@@ -28,6 +28,10 @@ module.exports.routes = {
     view: 'pages/homepage'
   },
 
+  '/privacy': {
+    view: 'pages/privacy'
+  },
+
   '/dashboard': "UserController.view-dashboard",
   '/setup': "UserController.view-setup",
 
