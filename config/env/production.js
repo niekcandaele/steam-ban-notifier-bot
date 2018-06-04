@@ -164,9 +164,9 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     cors: {
-      // allowOrigins: [
-      //   'https://example.com',
-      // ]
+      allowOrigins: [
+        'https://ban-notifier.xyz',
+       ]
     },
 
   },
@@ -267,7 +267,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     onlyAllowOrigins: [
-      'https://doesnotexistbutneedtosetthis.com',
+      'https://ban-notifier.xyz',
     ],
 
 
@@ -339,7 +339,7 @@ module.exports = {
     * (https://sailsjs.com/config/http)                                        *
     *                                                                          *
     ***************************************************************************/
-    // trustProxy: true,
+    trustProxy: true,
 
   },
 
