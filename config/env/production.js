@@ -389,7 +389,7 @@ module.exports = {
   ***************************************************************************/
   custom: {
 
-    maxPlayersToCheckPerInterval: 50,
+    maxPlayersToCheckPerInterval: 100,
     // 1800000 Ms = 30 minutes
     intervalToSendBanChecksMs: 1800000,
 
