@@ -52,3 +52,7 @@ try {
 
 // Start server
 sails.lift(rc('sails'));
+
+process.on('unhandledRejection', (reason, p) => {
+  sails.log.error('Unhandled Rejection at: Promise', p, 'reason:', reason);
+});
