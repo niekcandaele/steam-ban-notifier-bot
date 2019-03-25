@@ -48,7 +48,7 @@ module.exports = function defineDiscordBotHook(sails) {
 
         client.on('ready', () => {
           sails.log.info(`Logged in as ${client.user.tag}!`);
-          client.user.setActivity('https://ban-notifier.xyz/', { type: 'PLAYING' });
+          client.user.setActivity(process.env.HOSTNAME, { type: 'PLAYING' });
           // Don't forget to trigger `done()` when this bootstrap function's logic is finished.
           // (otherwise your server will never lift, since it's waiting on the bootstrap)
           return done();
@@ -79,7 +79,7 @@ client.on('guildCreate', async (guild) => {
   sails.log.info(`New guild! ${guild.name}`);
   try {
     let dmChannelWithOwner = await guild.owner.createDM();
-    dmChannelWithOwner.send(`I was added to ${guild.name}! Please check the website for more info on how to get started - https://www.ban-notifier.xyz/`);
+    dmChannelWithOwner.send(`I was added to ${guild.name}! Please check the website for more info on how to get started - ${process.env.HOSTNAME}`);
     return;
   } catch (error) {
     sails.log.error(error);

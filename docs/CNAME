@@ -1,1 +1,1 @@
-ban-notifier.xyz
+process.env.HOSTNAME

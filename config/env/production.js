@@ -165,7 +165,7 @@ module.exports = {
     ***************************************************************************/
     cors: {
       allowOrigins: [
-        'https://ban-notifier.xyz',
+        process.env.HOSTNAME,
        ]
     },
 
@@ -267,7 +267,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     onlyAllowOrigins: [
-      'https://ban-notifier.xyz',
+      process.env.HOSTNAME,
     ],
 
 
