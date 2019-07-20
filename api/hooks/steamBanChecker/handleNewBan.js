@@ -10,9 +10,9 @@ async function handleNewBan(bannedPlayer, newBanStatus) {
 
     let profileEmbed = await sails.helpers.createProfileEmbed(bannedPlayer.steamId);
 
-    await sendDm(bannedPlayer, profileEmbed);
-    await sendGuildMessage(bannedPlayer, profileEmbed);
-    await sendGlobal(bannedPlayer, profileEmbed);
+    //await sendDm(bannedPlayer, profileEmbed);
+    //await sendGuildMessage(bannedPlayer, profileEmbed);
+    //await sendGlobal(bannedPlayer, profileEmbed);
 
     await TrackedAccount.update(bannedPlayer.id, {
       banDetectedAt: Date.now(),

@@ -18,6 +18,10 @@ module.exports = function defineSteamBotHook(sails) {
 
   return {
 
+    getClient: () => {
+      return CSGOCli;
+    },
+
     /**
      * Runs when a Sails app loads/lifts.
      *
@@ -55,8 +59,7 @@ module.exports = function defineSteamBotHook(sails) {
 
             CSGOCli.launch();
 
-          }
-          else {
+          } else {
             sails.log.error('error, ', response);
             process.exit();
           }
@@ -100,23 +103,29 @@ module.exports = function defineSteamBotHook(sails) {
           }
 
           for (const match of data.matches) {
+
+
             let matchId = new Long(match.matchid.low, match.matchid.high, match.matchid.unsigned);
             matchId = matchId.toString();
 
-            let matchRecord = await CsgoMatch.findOrCreate({ matchId: matchId }, {
+            let matchRecord = await CsgoMatch.findOrCreate({
+              matchId: matchId
+            }, {
               matchId: matchId,
               map: match.watchablematchinfo.game_map
             });
             matchRecord = await CsgoMatch.findOne(matchRecord.id).populate('players');
 
 
-            let steamIdsInMatch = new Array();
+            const steamIdsInMatch = new Array();
 
             for (const accountId of match.roundstats_legacy.reservation.account_ids) {
               steamIdsInMatch.push(CSGOCli.ToSteamID(accountId));
             }
 
-            let usersInMatch = await User.find({ steamId: steamIdsInMatch });
+            let usersInMatch = await User.find({
+              steamId: steamIdsInMatch
+            });
 
             sails.log.debug(`Found ${usersInMatch.length} in match.`);
 
@@ -124,13 +133,15 @@ module.exports = function defineSteamBotHook(sails) {
             for (const user of usersInMatch) {
 
               // See if user and match are associated already
-              // If not, we make add to the collection
+              // If not, we add to the collection
               let userIsInMatch = matchRecord.players.filter(trackedAccountInMatch => {
                 return trackedAccountInMatch.steamId === user.steamId
               });
 
               if (userIsInMatch.length === 0) {
-                let trackedAccountCorrespondingToUser = await TrackedAccount.findOne({ steamId: user.steamId });
+                let trackedAccountCorrespondingToUser = await TrackedAccount.findOne({
+                  steamId: user.steamId
+                });
 
                 if (!_.isUndefined(trackedAccountCorrespondingToUser)) {
                   sails.log.info(`Associated user ${user.id} with csgo match ${matchRecord.id}`);
@@ -141,27 +152,51 @@ module.exports = function defineSteamBotHook(sails) {
 
               for (const steamIdToTrack of steamIdsInMatch) {
 
-                // Make database associations for Users and trackedAccounts if not done already
-                let trackedAccount = await TrackedAccount.findOrCreate({ steamId: steamIdToTrack }, { steamId: steamIdToTrack });
+                let trackedAccount = await TrackedAccount.findOrCreate({
+                  steamId: steamIdToTrack
+                }, {
+                  steamId: steamIdToTrack
+                });
                 trackedAccount = await TrackedAccount.findOne(trackedAccount.id).populate('trackedBy', {
                   where: {
                     id: usersInMatch.map(user => user.id)
                   }
-                })
+                }).populate('trackedByGuild');
 
                 for (const user of usersInMatch) {
 
-                  let userIsTrackingAccount = trackedAccount.trackedBy.filter(userToCheck => user.id === userToCheck.id);
+                  // Make database associations for Users and trackedAccounts
+                  const userIsTrackingAccount = trackedAccount.trackedBy.filter(userToCheck => user.id === userToCheck.id);
 
                   if (userIsTrackingAccount.length === 0) {
                     sails.log.info(`Associated user ${user.id} with tracked account ${trackedAccount.id}`);
                     await sails.models.user.addToCollection(user.id, 'trackedAccounts', trackedAccount.id);
                   }
+
+                  // If a user is in a guild with the bot, we add the trackedAccount to the guilds trackedAccount association
+                  const discordGuilds = await sails.helpers.findGuildsForUser(user.id);
+                  for (const discordGuild of discordGuilds) {
+                    const discordGuildRecord = await DiscordGuild.findOrCreate({
+                      discordId: discordGuild.id
+                    }, {
+                      discordId: discordGuild.id
+                    })
+                    const guildIsTrackingAccount = trackedAccount.trackedByGuild.filter(guildToCheck => discordGuild.id === guildToCheck.discordId);
+                    if (guildIsTrackingAccount.length === 0) {
+                      sails.log.info(`Associated guild ${discordGuild.name} with tracked account ${trackedAccount.id}`);
+                      await DiscordGuild.addToCollection(discordGuildRecord.id, 'trackedAccounts', trackedAccount.id);
+                    }
+                  }
                 }
               }
             }
 
-            sails.log.debug(`Handled a match!`, { id: matchRecord.id, map: matchRecord.map }, { users: usersInMatch.map(user => user.id) });
+            sails.log.debug(`Handled a match!`, {
+              id: matchRecord.id,
+              map: matchRecord.map
+            }, {
+              users: usersInMatch.map(user => user.id)
+            });
           }
 
 
@@ -209,6 +244,3 @@ async function checkForOngoingMatches(steamId, csgoClient) {
 
   });
 }
-
-
-

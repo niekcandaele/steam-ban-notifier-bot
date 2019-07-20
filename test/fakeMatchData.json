@@ -1,0 +1,77 @@
+{
+  "matchid": {
+    "low": 246,
+    "high": 781822482,
+    "unsigned": true
+  },
+  "matchtime": null,
+  "watchablematchinfo": {
+    "server_ip": null,
+    "tv_port": null,
+    "tv_spectators": 1,
+    "tv_time": 2189,
+    "tv_watch_password": null,
+    "cl_decryptdata_key": null,
+    "cl_decryptdata_key_pub": null,
+    "game_type": 1048584,
+    "game_mapgroup": "mg_de_cache",
+    "game_map": "de_cache",
+    "server_id": {
+      "low": 2032784129,
+      "high": -2130640428,
+      "unsigned": true
+    },
+    "match_id": {
+      "low": 246,
+      "high": 781822482,
+      "unsigned": true
+    },
+    "reservation_id": null
+  },
+  "roundstats_legacy": {
+    "reservationid": null,
+    "reservation": {
+      "account_ids": [67910213, 447875022, 231413041, 911866861, 112727187, 92889747, 257563153, 113134019, 257541833, 235096363],
+      "game_type": 1048584,
+      "match_id": null,
+      "server_version": 13705,
+      "rankings": [],
+      "encryption_key": null,
+      "encryption_key_pub": null,
+      "party_ids": [],
+      "whitelist": [],
+      "tv_master_steamid": null,
+      "tournament_event": null,
+      "tournament_teams": [],
+      "tournament_casters_account_ids": [],
+      "tv_relay_steamid": null,
+      "pre_match_data": null,
+      "rtime32_event_start": null
+    },
+    "map": null,
+    "round": null,
+    "kills": [16, 24, 31, 18, 14, 19, 9, 25, 13, 21],
+    "assists": [4, 5, 3, 5, 5, 5, 5, 2, 2, 2],
+    "deaths": [15, 15, 20, 20, 17, 19, 21, 18, 23, 22],
+    "scores": [39, 58, 71, 45, 37, 50, 29, 56, 30, 44],
+    "pings": [],
+    "round_result": null,
+    "match_result": null,
+    "team_scores": [14, 10],
+    "confirm": null,
+    "reservation_stage": null,
+    "match_duration": 2135,
+    "enemy_kills": [],
+    "enemy_headshots": [],
+    "enemy_3ks": [],
+    "enemy_4ks": [],
+    "enemy_5ks": [],
+    "mvps": [2, 5, 6, 1, 0, 2, 1, 6, 0, 1],
+    "spectators_count": null,
+    "spectators_count_tv": null,
+    "spectators_count_lnk": null,
+    "enemy_kills_agg": [],
+    "drop_info": null
+  },
+  "roundstatsall": []
+}
