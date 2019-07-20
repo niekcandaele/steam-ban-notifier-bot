@@ -11,7 +11,9 @@ module.exports = async function (bannedPlayer, profileEmbed) {
       let channelToSendMessage = await sails.discordClient.channels.get(discordGuildRow.banNotificationChannel);
 
       if (!_.isUndefined(channelToSendMessage)) {
-        await channelToSendMessage.send(`A player was banned!`, {embed: profileEmbed} );
+        await channelToSendMessage.send(`A players ban status changed`, {
+          embed: profileEmbed
+        });
         sails.log.debug(`Sent message to ${channelToSendMessage.name} on ${channelToSendMessage.guild.name}`);
         successfulMessages++
       }
@@ -25,6 +27,3 @@ module.exports = async function (bannedPlayer, profileEmbed) {
 
   }
 };
-
-
-

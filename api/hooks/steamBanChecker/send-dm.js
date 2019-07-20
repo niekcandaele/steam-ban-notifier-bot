@@ -16,7 +16,9 @@ module.exports = async function (bannedPlayer, profileEmbed) {
         if (!_.isUndefined(dmChannel)) {
 
           try {
-            await dmChannel.send(`A player you were tracking has been banned!`, {embed: profileEmbed});
+            await dmChannel.send(`Ban status changed`, {
+              embed: profileEmbed
+            });
             sails.log.debug(`Sent message to ${discordUser.username}`);
             successfulMessages++
           } catch (error) {
@@ -34,6 +36,3 @@ module.exports = async function (bannedPlayer, profileEmbed) {
 
   }
 };
-
-
-

@@ -12,7 +12,9 @@ module.exports = async function (bannedPlayer, profileEmbed) {
       let channelToSendMessage = await sails.discordClient.channels.get(discordGuild.globalNotificationChannel);
 
       if (!_.isUndefined(channelToSendMessage)) {
-        await channelToSendMessage.send(`A player was banned!`, { embed: profileEmbed });
+        await channelToSendMessage.send(`A players ban status changed`, {
+          embed: profileEmbed
+        });
       }
     }
 
@@ -23,6 +25,3 @@ module.exports = async function (bannedPlayer, profileEmbed) {
 
   }
 };
-
-
-
