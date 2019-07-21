@@ -1,25 +1,31 @@
+<%- exposeLocalsToBrowser() %>
+
 <body>
-  <div class="container white-text" >
+  <div class="container">
 
     <div class="row">
       <div class="col s4">
-        <h1 >Dashboard</h1>
+        <h1>Dashboard</h1>
       </div>
       <div class="col s4">
 
       </div>
       <div class="col s4">
 
-          <a href="/setup" class="btn-large waves-effect waves-light blue">
-            <i class="fas fa-cogs"></i> Settings</a>
+        <a href="/setup" class="btn-large waves-effect waves-light blue">
+          <i class="fas fa-cogs"></i> Settings</a>
 
       </div>
 
     </div>
 
     <div class="row">
-      <h2>Tracked accounts</h2>
-      <table id="table-trackedaccounts"></table>
+
+      <div>
+        <div id="pie-chart" class="center-chart"></div>
+        <div id="bar-chart"></div>
+      </div>
+
     </div>
 
 
@@ -29,25 +35,20 @@
 
 
 <script>
-
   $(document).ready(() => {
 
-    $.get('/api/user/trackedaccount', (data, status, xhr) => {
+    $.get('/api/trackedaccount/stats', {
+      userId: window.SAILS_LOCALS.userId
+    }).done((data) => {
+      drawPieChart(data);
+    });
 
-      $('#table-trackedaccounts').bootstrapTable({
-        columns: [{
-          field: 'steamId',
-          title: 'Steam ID'
-        }, {
-          field: 'vacBanned',
-          title: 'VAC'
-        }, {
-          field: 'numberOfGameBans',
-          title: 'Game bans'
-        }],
-        data: data
-      });
+    $.get('/api/trackedaccount/stats/date', {
+      userId: window.SAILS_LOCALS.userId
+    }).done((data) => {
+      drawBarChart(data)
     })
+
 
   })
 

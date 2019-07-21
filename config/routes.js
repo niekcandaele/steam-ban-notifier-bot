@@ -16,13 +16,13 @@ module.exports.routes = {
   //  ╚╩╝╚═╝╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
 
   /***************************************************************************
-  *                                                                          *
-  * Make the view located at `views/homepage.ejs` your home page.            *
-  *                                                                          *
-  * (Alternatively, remove this and add an `index.html` file in your         *
-  * `assets` directory)                                                      *
-  *                                                                          *
-  ***************************************************************************/
+   *                                                                          *
+   * Make the view located at `views/homepage.ejs` your home page.            *
+   *                                                                          *
+   * (Alternatively, remove this and add an `index.html` file in your         *
+   * `assets` directory)                                                      *
+   *                                                                          *
+   ***************************************************************************/
 
   '/': {
     view: 'pages/homepage'
@@ -36,15 +36,15 @@ module.exports.routes = {
   '/setup': "UserController.view-setup",
 
   /***************************************************************************
-  *                                                                          *
-  * More custom routes here...                                               *
-  * (See https://sailsjs.com/config/routes for examples.)                    *
-  *                                                                          *
-  * If a request to a URL doesn't match any of the routes in this file, it   *
-  * is matched against "shadow routes" (e.g. blueprint routes).  If it does  *
-  * not match any of those, it is matched against static assets.             *
-  *                                                                          *
-  ***************************************************************************/
+   *                                                                          *
+   * More custom routes here...                                               *
+   * (See https://sailsjs.com/config/routes for examples.)                    *
+   *                                                                          *
+   * If a request to a URL doesn't match any of the routes in this file, it   *
+   * is matched against "shadow routes" (e.g. blueprint routes).  If it does  *
+   * not match any of those, it is matched against static assets.             *
+   *                                                                          *
+   ***************************************************************************/
 
 
   //  ╔═╗╔═╗╦  ╔═╗╔╗╔╔╦╗╔═╗╔═╗╦╔╗╔╔╦╗╔═╗
@@ -56,10 +56,13 @@ module.exports.routes = {
   'get /api/user/trackedaccount': 'UserController.get-tracked-accounts',
 
   'get /api/user/steam/friendStatus': "SteamBotController.check-if-friend",
-  
-  'get /api/user/discord/mutualGuild' : "discord-bot.check-mutual-guild",
-  'get /api/user/discord/openDM' : "discord-bot.check-open-dm",
-  'get /api/user/discord/testDM' : 'discord-bot.test-dm',
+
+  'get /api/user/discord/mutualGuild': "discord-bot.check-mutual-guild",
+  'get /api/user/discord/openDM': "discord-bot.check-open-dm",
+  'get /api/user/discord/testDM': 'discord-bot.test-dm',
+
+  'get /api/trackedaccount/stats': 'trackedAccount.get-tracked-account-count',
+  'get /api/trackedaccount/stats/date': 'trackedAccount.get-tracked-by-date',
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
   //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
@@ -70,8 +73,8 @@ module.exports.routes = {
   //  ║║║║╚═╗║
   //  ╩ ╩╩╚═╝╚═╝
 
-  '/login' : 'AuthController.steamLogin',
-  '/login/discord' : 'AuthController.discordLogin',
+  '/login': 'AuthController.steamLogin',
+  '/login/discord': 'AuthController.discordLogin',
   '/auth/steam/return': "AuthController.steamReturn",
   '/auth/discord/return': "AuthController.discordReturn",
   '/logout': 'AuthController.logout'

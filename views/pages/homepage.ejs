@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
   <title>Ban notifier</title>
 
 
 </head>
+
 <body>
 
   <div class="section no-pad-bot" id="index-banner">
@@ -19,22 +21,26 @@
           <div class="row center">
             <h5 class="header col s12 light">Know when someone you played with gets banned!</h5>
           </div>
-    
+
           <div class="row center">
 
 
-              <a href="/login" class="waves-effect waves-light btn-large">Get started</a>
 
+            <div>
+              <div id="pie-chart" class="center-chart"></div>
+              <div id="bar-chart"></div>
+            </div>
+
+            <a href="/login" class="waves-effect waves-light btn-large">Get started</a>
           </div>
-          <br>
-          <br>
-    
+
+
         </div>
       </div>
-    
+
       <div class="container">
         <div class="section">
-    
+
           <!--   Icon Section   -->
           <div class="row">
             <div class="col s12 m4">
@@ -42,46 +48,59 @@
                 <h2 class="center light-blue-text">
                   <i class="material-icons">flash_on</i>
                 </h2>
-                <h5 class="center white-text">Automatic account tracking</h5>
-    
-                <p class="light">Track steam accounts and receive a notification when the account gets any type of ban. Currently supported are
+                <h5 class="center">Automatic account tracking</h5>
+
+                <p class="light">Track steam accounts and receive a notification when the account gets any type of ban.
+                  Currently supported are
                   all Steam bans (VAC, game, economy, community bans)</p>
               </div>
             </div>
-    
+
             <div class="col s12 m4">
               <div class="icon-block">
                 <h2 class="center light-blue-text">
                   <i class="material-icons">group</i>
                 </h2>
-                <h5 class="center white-text">Open source</h5>
-    
+                <h5 class="center">Open source</h5>
+
                 <p class="light">The code is on
                   <a href="https://github.com/niekcandaele/steam-ban-notifier-bot" target="_blank">
-                    <i class="fab fa-github"></i> Github </a>. Fully available to the community to run your own version or to improve it!</p>
+                    <i class="fab fa-github"></i> Github </a>. Fully available to the community to run your own version
+                  or to improve it!</p>
               </div>
             </div>
-    
+
             <div class="col s12 m4">
               <div class="icon-block">
                 <h2 class="center light-blue-text">
                   <i class="material-icons">settings</i>
                 </h2>
-                <h5 class="center white-text">Configurable</h5>
-    
-                <p class="light">Configure a guild channel to receive notifications (or don't!). Add/remove tracking for accounts. Control automatic tracking. The bot does
+                <h5 class="center">Configurable</h5>
+
+                <p class="light">Configure a guild channel to receive notifications (or don't!). Add/remove tracking for
+                  accounts. Control automatic tracking. The bot does
                   what you want.</p>
               </div>
             </div>
           </div>
-    
         </div>
-    
       </div>
-    
     </div>
+</body>
 
+<script>
+  $(document).ready(() => {
 
+    $.get('/api/trackedaccount/stats', (data) => {
+      drawPieChart(data);
+    })
 
-  </body>
+    $.get('/api/trackedaccount/stats/date', (data) => {
+      drawBarChart(data)
+    })
+
+  })
+
+</script>
+
 </html>

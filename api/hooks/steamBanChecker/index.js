@@ -23,6 +23,8 @@ module.exports = function defineSteamBanCheckerHook(sails) {
 
       sails.on('hook:orm:loaded', async () => {
         checkingInterval = setInterval(intervalFunc, sails.config.custom.intervalToSendBanChecksMs);
+        // Check once when application starts
+        intervalFunc();
         return done();
       });
     },
@@ -45,7 +47,9 @@ async function intervalFunc() {
     let banStatusChanges = await sails.helpers.detectBanStatus(playersToCheck.map(player => player.id));
 
     for (const playerToCheck of playersToCheck) {
-      await TrackedAccount.update({ id: playerToCheck.id }, {
+      await TrackedAccount.update({
+        id: playerToCheck.id
+      }, {
         lastCheckedAt: Date.now()
       });
 
@@ -67,5 +71,3 @@ async function intervalFunc() {
   }
 
 }
-
-

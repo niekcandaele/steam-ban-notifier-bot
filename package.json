@@ -28,7 +28,9 @@
   },
   "devDependencies": {
     "eslint": "4.11.0",
-    "mocha": "^5.1.1"
+    "grunt": "^1.0.4",
+    "mocha": "^5.1.1",
+    "sails-hook-grunt": "^4.0.1"
   },
   "scripts": {
     "start": "NODE_ENV=production node app.js",
