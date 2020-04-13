@@ -1,3 +1,7 @@
+# Deprecated!
+
+This project no longer receives updates or support. Please join [the Discord](https://discordapp.com/invite/hb6R6UW) for the latest news.
+
 # Steam ban notifier
 
 Analyzes your matches and lets you know when someone you played with gets banned
