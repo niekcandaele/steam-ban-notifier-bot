@@ -1,6 +1,6 @@
 # Deprecated!
 
-This project no longer receives updates or support. Please join [the Discord](https://discordapp.com/invite/hb6R6UW) for the latest news.
+This project no longer receives updates or support. Please join [the Discord](https://discord.gg/axa7E5f) for the latest news.
 
 # Steam ban notifier
 
