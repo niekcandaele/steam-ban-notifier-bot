@@ -27,7 +27,7 @@
     "winston": "^2.4.4"
   },
   "devDependencies": {
-    "eslint": "4.11.0",
+    "eslint": "4.18.2",
     "grunt": "^1.0.4",
     "mocha": "^5.1.1",
     "sails-hook-grunt": "^4.0.1"
